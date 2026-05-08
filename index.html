@@ -98,16 +98,28 @@ body{
     color:#5a4635;
 }
 
+/* UPDATED BUTTON FIX */
+
 .add-row button{
+
+    width:92px;
+    min-width:92px;
+    flex-shrink:0;
+
     border:none;
+
     background:
     linear-gradient(to bottom,#8ead73,#6d8f58);
+
     color:white;
-    padding:0 24px;
+
     border-radius:18px;
+
     font-size:18px;
     font-weight:900;
+
     cursor:pointer;
+
     box-shadow:
     inset 0 2px 0 rgba(255,255,255,0.3),
     0 6px 12px rgba(0,0,0,0.12);
@@ -421,28 +433,6 @@ body{
     opacity:0.7;
 }
 
-/* FOOTER */
-
-.footer{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-
-    background:rgba(241,231,203,0.96);
-
-    backdrop-filter:blur(8px);
-
-    display:flex;
-    justify-content:space-around;
-
-    padding:18px;
-
-    border-top:2px solid #e0d0ad;
-
-    font-weight:700;
-}
-
 /* MOBILE */
 
 @media(max-width:1200px){
@@ -556,12 +546,6 @@ body{
 
 </div>
 
-<div class="footer">
-    <div>💡 Cross off places you don't want</div>
-    <div>💾 Saved automatically with localStorage</div>
-    <div>🔒 Private to this device</div>
-</div>
-
 <script>
 
 let restaurants = JSON.parse(localStorage.getItem("restaurants")) || [
@@ -629,7 +613,15 @@ function renderSpinner(){
 
     const active = restaurants.filter(r=>!r.crossed);
 
-    const repeated = [...active,...active,...active];
+    const repeated = [];
+
+    for(let i = 0; i < 40; i++){
+
+        repeated.push(
+            active[i % active.length]
+        );
+
+    }
 
     repeated.forEach(r=>{
 
@@ -680,26 +672,38 @@ function deleteRestaurant(index){
 
 function spinWheel(){
 
-    const active = restaurants.filter(r=>!r.crossed);
+    const active =
+    restaurants.filter(r=>!r.crossed);
 
     if(active.length === 0){
+
         alert("Add restaurants first");
+
         return;
     }
 
     const winnerIndex =
     Math.floor(Math.random() * active.length);
 
-    const winner = active[winnerIndex];
+    const winner =
+    active[winnerIndex];
 
     const cardHeight = 139;
 
-    const loops = active.length * 2;
+    spinnerTrack.style.transition = "none";
 
-    const finalIndex = loops + winnerIndex;
+    spinnerTrack.style.transform =
+    "translateY(0px)";
+
+    void spinnerTrack.offsetHeight;
+
+    const loops = 12;
+
+    const finalIndex =
+    (loops * active.length) + winnerIndex;
 
     const offset =
-    (finalIndex * cardHeight) - 260;
+    (finalIndex * cardHeight) - 255;
 
     spinnerTrack.style.transition =
     "transform 6s cubic-bezier(.12,.89,.16,1)";
