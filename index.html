@@ -2,375 +2,381 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>Restaurant Picker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Family Dinner Picker</title>
 
 <style>
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#0f1117;
-    color:white;
-    min-height:100vh;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #f6f1e7;
+    color: #4b463f;
 }
 
-.container{
-    width:95%;
-    max-width:900px;
-    text-align:center;
+header {
+    text-align: center;
+    padding: 25px;
 }
 
-h1{
-    font-size:3rem;
-    margin-bottom:25px;
+header h1 {
+    margin: 0;
+    font-size: 42px;
 }
 
-.input-area{
-    display:flex;
-    gap:10px;
-    margin-bottom:25px;
+header p {
+    opacity: 0.7;
 }
 
-#restaurantInput{
-    flex:1;
-    padding:14px;
-    border:none;
-    border-radius:12px;
-    font-size:16px;
-    outline:none;
+.main-layout {
+    width: 95%;
+    max-width: 1500px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 30px;
+    padding-bottom: 50px;
 }
 
-button{
-    border:none;
-    border-radius:12px;
-    padding:14px 20px;
-    background:#4d7cff;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.2s;
+.panel {
+    background: #fffaf2;
+    border-radius: 28px;
+    padding: 22px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
-button:hover{
-    transform:scale(1.05);
+.input-row {
+    display: flex;
+    gap: 10px;
 }
 
-#restaurantList{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:10px;
-    margin-bottom:35px;
+input {
+    flex: 1;
+    border: none;
+    border-radius: 16px;
+    padding: 14px;
+    font-size: 16px;
+    background: #efe7da;
+    outline: none;
 }
 
-.restaurant{
-    background:#1b2230;
-    padding:10px 14px;
-    border-radius:20px;
-    transition:.2s;
+button {
+    border: none;
+    background: #8ca67f;
+    color: white;
+    border-radius: 16px;
+    padding: 14px 18px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-.used{
-    opacity:.35;
-    text-decoration:line-through;
+button:hover {
+    transform: translateY(-2px);
 }
 
-.spinner-container{
-    position:relative;
-    width:100%;
-    height:220px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    overflow:hidden;
-
-    border-radius:25px;
-    background:#171c27;
-
-    border:3px solid #4d7cff;
-
-    margin-bottom:30px;
+.restaurant-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 70vh;
+    overflow-y: auto;
 }
 
-#spinner{
-    font-size:3rem;
-    font-weight:bold;
-    transition:transform .15s;
-    padding:20px;
+.restaurant-item {
+    background: #f7f0e3;
+    border-radius: 18px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 
-.glow{
-    animation:glow .8s infinite alternate;
+.restaurant-item.disabled {
+    opacity: 0.45;
+    text-decoration: line-through;
 }
 
-@keyframes glow{
-    from{
-        text-shadow:0 0 10px #4d7cff;
+.restaurant-name {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.small-btn {
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+}
+
+.spinner-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.spinner-wrapper {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+    border-radius: 30px;
+    background: #efe5d5;
+    display: flex;
+    align-items: center;
+}
+
+.spinner-track {
+    display: flex;
+    gap: 18px;
+    padding-left: 40px;
+    will-change: transform;
+}
+
+.restaurant-card {
+    min-width: 220px;
+    height: 160px;
+    border-radius: 24px;
+    background: linear-gradient(145deg, #fffefb, #ece2d1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: 900;
+    color: #5a5148;
+    transition: 0.25s;
+}
+
+.restaurant-card.winner {
+    transform: scale(1.08);
+    box-shadow: 0 0 35px rgba(140,166,127,0.7);
+    background: linear-gradient(145deg, #fffdf7, #f2ead7);
+}
+
+.center-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 100%;
+    background: rgba(140,166,127,0.7);
+    border-radius: 999px;
+    z-index: 5;
+}
+
+.result-box {
+    text-align: center;
+    background: #f3eadb;
+    border-radius: 24px;
+    padding: 30px;
+}
+
+.result-box h2 {
+    margin-top: 0;
+}
+
+#winner-name {
+    font-size: 42px;
+    font-weight: 900;
+    color: #6c8a61;
+}
+
+.spin-btn {
+    font-size: 20px;
+    padding: 18px;
+    border-radius: 20px;
+}
+
+@media (max-width: 950px) {
+    .main-layout {
+        grid-template-columns: 1fr;
     }
 
-    to{
-        text-shadow:
-        0 0 20px #4d7cff,
-        0 0 40px #4d7cff;
-    }
-}
-
-.buttons{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:12px;
-}
-
-@media(max-width:600px){
-
-    h1{
-        font-size:2rem;
-    }
-
-    #spinner{
-        font-size:2rem;
-    }
-
-    .input-area{
-        flex-direction:column;
-    }
-
-    button{
-        width:100%;
+    .restaurant-card {
+        min-width: 170px;
+        font-size: 18px;
     }
 }
 </style>
 </head>
 <body>
 
-<div class="container">
+<header>
+    <h1>🍽 Family Dinner Picker</h1>
+    <p>Pick tonight's restaurant with a Hearthstone-style spin!</p>
+</header>
 
-    <h1>Restaurant Picker</h1>
+<div class="main-layout">
 
-    <div class="input-area">
-        <input
-            id="restaurantInput"
-            type="text"
-            placeholder="Enter restaurant..."
-        >
-
-        <button id="addBtn">
-            Add
-        </button>
-    </div>
-
-    <div id="restaurantList"></div>
-
-    <div class="spinner-container">
-        <div id="spinner">
-            PRESS SPIN
+    <div class="panel">
+        <div class="input-row">
+            <input id="restaurant-input" placeholder="Add restaurant..." />
+            <button onclick="addRestaurant()">Add</button>
         </div>
+
+        <div class="restaurant-list" id="restaurant-list"></div>
     </div>
 
-    <div class="buttons">
-        <button id="spinBtn">
-            SPIN
+    <div class="spinner-panel">
+
+        <div class="panel">
+            <div class="spinner-wrapper">
+                <div class="center-line"></div>
+                <div class="spinner-track" id="spinner-track"></div>
+            </div>
+        </div>
+
+        <button class="spin-btn" onclick="spinRestaurants()">
+            SPIN FOR DINNER
         </button>
 
-        <button id="crossBtn">
-            ✔ Cross Off
-        </button>
+        <div class="result-box">
+            <h2>Tonight's Pick</h2>
+            <div id="winner-name">???</div>
+        </div>
 
-        <button id="resetBtn">
-            Reset All
-        </button>
     </div>
 
 </div>
 
 <script>
-let restaurants =
-JSON.parse(localStorage.getItem("restaurants")) || [];
+let restaurants = JSON.parse(localStorage.getItem("restaurants")) || [];
 
-let selectedRestaurant = null;
-
-const input =
-document.getElementById("restaurantInput");
-
-const addBtn =
-document.getElementById("addBtn");
-
-const list =
-document.getElementById("restaurantList");
-
-const spinner =
-document.getElementById("spinner");
-
-function saveRestaurants(){
-
-    localStorage.setItem(
-        "restaurants",
-        JSON.stringify(restaurants)
-    );
+function saveRestaurants() {
+    localStorage.setItem("restaurants", JSON.stringify(restaurants));
 }
 
-function renderRestaurants(){
+function addRestaurant() {
+    const input = document.getElementById("restaurant-input");
+    const name = input.value.trim();
 
-    list.innerHTML = "";
-
-    restaurants.forEach((restaurant)=>{
-
-        const div =
-        document.createElement("div");
-
-        div.className = "restaurant";
-
-        if(restaurant.used){
-            div.classList.add("used");
-        }
-
-        div.textContent =
-        restaurant.name;
-
-        list.appendChild(div);
-    });
-}
-
-function addRestaurant(){
-
-    const name =
-    input.value.trim();
-
-    if(!name) return;
+    if (!name) return;
 
     restaurants.push({
-        name:name,
-        used:false
+        name,
+        disabled: false
     });
 
-    saveRestaurants();
-
-    renderRestaurants();
-
     input.value = "";
+
+    saveRestaurants();
+    renderRestaurants();
 }
 
-addBtn.addEventListener(
-    "click",
-    addRestaurant
-);
+function removeRestaurant(index) {
+    restaurants.splice(index, 1);
+    saveRestaurants();
+    renderRestaurants();
+}
 
-input.addEventListener("keydown",(e)=>{
+function toggleRestaurant(index) {
+    restaurants[index].disabled = !restaurants[index].disabled;
+    saveRestaurants();
+    renderRestaurants();
+}
 
-    if(e.key === "Enter"){
-        addRestaurant();
-    }
-});
+function renderRestaurants() {
+    const list = document.getElementById("restaurant-list");
+    list.innerHTML = "";
 
-document
-.getElementById("spinBtn")
-.addEventListener("click", async ()=>{
+    restaurants.forEach((restaurant, index) => {
+        const item = document.createElement("div");
+        item.className = "restaurant-item";
 
-    const available =
-    restaurants.filter(r => !r.used);
+        if (restaurant.disabled) {
+            item.classList.add("disabled");
+        }
 
-    if(available.length === 0){
+        item.innerHTML = `
+            <div class="restaurant-name">${restaurant.name}</div>
 
-        spinner.textContent =
-        "NO RESTAURANTS LEFT";
+            <div class="actions">
+                <button class="small-btn" onclick="toggleRestaurant(${index})">
+                    ${restaurant.disabled ? "Undo" : "Cross Off"}
+                </button>
 
+                <button class="small-btn" onclick="removeRestaurant(${index})">
+                    Delete
+                </button>
+            </div>
+        `;
+
+        list.appendChild(item);
+    });
+}
+
+function spinRestaurants() {
+    const enabled = restaurants.filter(r => !r.disabled);
+
+    if (enabled.length === 0) {
+        alert("Add restaurants first!");
         return;
     }
 
-    spinner.classList.add("glow");
+    const track = document.getElementById("spinner-track");
+    track.innerHTML = "";
 
-    let speed = 50;
+    const spinPool = [];
 
-    for(let i = 0; i < 45; i++){
-
-        const random =
-        available[
-            Math.floor(
-                Math.random() * available.length
-            )
-        ];
-
-        spinner.textContent =
-        random.name;
-
-        spinner.style.transform =
-        `scale(${1 + Math.random() * 0.15})`;
-
-        await new Promise(resolve =>
-            setTimeout(resolve, speed)
-        );
-
-        speed += 5;
+    for (let i = 0; i < 40; i++) {
+        const randomRestaurant = enabled[Math.floor(Math.random() * enabled.length)];
+        spinPool.push(randomRestaurant);
     }
 
-    selectedRestaurant =
-    available[
-        Math.floor(
-            Math.random() * available.length
-        )
-    ];
+    const winner = enabled[Math.floor(Math.random() * enabled.length)];
 
-    spinner.textContent =
-    selectedRestaurant.name;
+    spinPool.push(winner);
 
-    spinner.style.transform =
-    "scale(1.15)";
+    spinPool.forEach(r => {
+        const card = document.createElement("div");
+        card.className = "restaurant-card";
+        card.textContent = r.name;
+        track.appendChild(card);
+    });
 
-    setTimeout(()=>{
-        spinner.style.transform =
-        "scale(1)";
-    },300);
-});
+    const cards = [...document.querySelectorAll(".restaurant-card")];
 
-document
-.getElementById("crossBtn")
-.addEventListener("click", ()=>{
+    const winnerIndex = cards.length - 1;
+    const cardWidth = 238;
 
-    if(!selectedRestaurant) return;
+    const offset = (winnerIndex * cardWidth) - (window.innerWidth / 2) + 150;
 
-    const found =
-    restaurants.find(
-        r => r.name === selectedRestaurant.name
-    );
+    track.style.transition = "none";
+    track.style.transform = "translateX(0px)";
 
-    if(found){
-        found.used = true;
-    }
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            track.style.transition = "transform 6s cubic-bezier(0.08,0.8,0.15,1)";
+            track.style.transform = `translateX(-${offset}px)`;
+        });
+    });
 
-    saveRestaurants();
-
-    renderRestaurants();
-});
-
-document
-.getElementById("resetBtn")
-.addEventListener("click", ()=>{
-
-    localStorage.removeItem("restaurants");
-
-    restaurants = [];
-
-    selectedRestaurant = null;
-
-    spinner.textContent =
-    "PRESS SPIN";
-
-    renderRestaurants();
-});
+    setTimeout(() => {
+        cards[winnerIndex].classList.add("winner");
+        document.getElementById("winner-name").textContent = winner.name;
+    }, 6100);
+}
 
 renderRestaurants();
+
+window.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        addRestaurant();
+    }
+});
 </script>
 
 </body>
