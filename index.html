@@ -1,5 +1,5 @@
-```html
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 <title>Cinematic Family Dinner Picker</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 
@@ -21,36 +21,33 @@
     box-sizing:border-box;
 }
 
-html,body{
-    width:100%;
-    min-height:100%;
-}
-
+html,
 body{
-    overflow-x:hidden;
-
-    font-family:'Nunito',sans-serif;
-
-    background:
-    radial-gradient(circle at center,
-    rgba(255,221,155,0.16) 0%,
-    rgba(255,221,155,0.08) 18%,
-    transparent 40%),
-
-    radial-gradient(circle at top,
-    #fff8e7 0%,
-    #f4e5c8 30%,
-    #ead7b3 60%,
-    #d9c19a 100%);
-
-    color:#5b3e27;
-
-    position:relative;
+    width:100%;
+    height:100%;
+    overflow:hidden;
 }
 
 /* =========================================================
-   WALL TEXTURE
+   WORLD
 ========================================================= */
+
+body{
+
+    font-family:'Inter',sans-serif;
+
+    background:
+    radial-gradient(circle at center,
+    #6e4d2e 0%,
+    #3b2416 35%,
+    #1b120d 100%);
+
+    position:relative;
+
+    color:#f5e7c7;
+}
+
+/* vignette */
 
 body::before{
     content:"";
@@ -59,31 +56,15 @@ body::before{
     inset:0;
 
     background:
-
-    repeating-linear-gradient(
-    90deg,
-    rgba(255,255,255,0.025) 0px,
-    rgba(255,255,255,0.025) 2px,
-    transparent 2px,
-    transparent 6px),
-
-    repeating-linear-gradient(
-    0deg,
-    rgba(0,0,0,0.015) 0px,
-    rgba(0,0,0,0.015) 2px,
-    transparent 2px,
-    transparent 5px);
-
-    opacity:.45;
+    radial-gradient(circle at center,
+    transparent 30%,
+    rgba(0,0,0,0.55) 100%);
 
     pointer-events:none;
-
-    z-index:0;
+    z-index:200;
 }
 
-/* =========================================================
-   CINEMATIC VIGNETTE
-========================================================= */
+/* wall texture */
 
 body::after{
     content:"";
@@ -91,47 +72,23 @@ body::after{
     position:fixed;
     inset:0;
 
-    background:
-    radial-gradient(circle at center,
-    transparent 40%,
-    rgba(0,0,0,0.22) 100%);
+    opacity:.08;
+
+    background-image:
+    repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,.04) 0px,
+    rgba(255,255,255,.04) 2px,
+    transparent 2px,
+    transparent 8px);
+
+    mix-blend-mode:overlay;
 
     pointer-events:none;
-
-    z-index:0;
 }
 
 /* =========================================================
-   ROOM GLOW
-========================================================= */
-
-.room-light{
-
-    position:fixed;
-
-    left:50%;
-    top:-200px;
-
-    transform:translateX(-50%);
-
-    width:1200px;
-    height:900px;
-
-    background:
-    radial-gradient(circle,
-    rgba(255,231,160,0.42) 0%,
-    rgba(255,218,120,0.16) 35%,
-    transparent 72%);
-
-    pointer-events:none;
-
-    filter:blur(10px);
-
-    z-index:1;
-}
-
-/* =========================================================
-   MAIN ROOM
+   ROOM
 ========================================================= */
 
 .room{
@@ -139,31 +96,71 @@ body::after{
     position:relative;
 
     width:100%;
-    min-height:100vh;
-
-    z-index:2;
+    height:100vh;
 
     overflow:hidden;
+
+    perspective:2000px;
+}
+
+/* ceiling light */
+
+.ceiling-light{
+
+    position:absolute;
+
+    width:900px;
+    height:900px;
+
+    left:50%;
+    top:-600px;
+
+    transform:translateX(-50%);
+
+    background:
+    radial-gradient(circle,
+    rgba(255,192,92,.65) 0%,
+    rgba(255,192,92,.25) 30%,
+    transparent 70%);
+
+    filter:blur(30px);
+
+    pointer-events:none;
+
+    z-index:1;
 }
 
 /* =========================================================
-   CEILING SHADOW
+   WALL SHADOWS
 ========================================================= */
 
-.ceiling-shadow{
+.wall-shadow-left,
+.wall-shadow-right{
 
     position:absolute;
     top:0;
+    bottom:0;
+    width:400px;
+
+    pointer-events:none;
+}
+
+.wall-shadow-left{
     left:0;
-    width:100%;
-    height:160px;
 
     background:
-    linear-gradient(to bottom,
-    rgba(0,0,0,0.18),
+    linear-gradient(to right,
+    rgba(0,0,0,.55),
     transparent);
+}
 
-    z-index:2;
+.wall-shadow-right{
+    right:0;
+
+    background:
+    linear-gradient(to left,
+    rgba(0,0,0,.55),
+    transparent);
 }
 
 /* =========================================================
@@ -174,576 +171,451 @@ body::after{
 
     position:absolute;
 
-    left:70px;
-    top:55px;
+    width:1200px;
+    height:36px;
 
-    width:340px;
-    height:22px;
+    left:50%;
+    top:120px;
 
-    border-radius:8px;
+    transform:
+    translateX(-50%)
+    perspective(1200px)
+    rotateX(70deg);
+
+    border-radius:12px;
 
     background:
     linear-gradient(to bottom,
-    #9d6837 0%,
-    #6c4221 45%,
-    #4d2e16 100%);
+    #8b6238 0%,
+    #5e3c22 40%,
+    #3a2212 100%);
 
     box-shadow:
-    0 8px 18px rgba(0,0,0,0.25),
-    inset 0 3px 2px rgba(255,255,255,0.2),
-    inset 0 -4px 4px rgba(0,0,0,0.4);
+    0 20px 40px rgba(0,0,0,.55),
+    inset 0 3px 0 rgba(255,255,255,.15),
+    inset 0 -8px 10px rgba(0,0,0,.4);
 
-    z-index:6;
+    z-index:20;
 }
 
-.shelf::after{
+.shelf::before{
 
     content:"";
 
     position:absolute;
-    left:12px;
-    right:12px;
-    bottom:-16px;
+
+    inset:-20px 0 auto 0;
 
     height:20px;
 
     background:
-    radial-gradient(circle,
-    rgba(0,0,0,0.28),
-    transparent 70%);
+    linear-gradient(to bottom,
+    rgba(0,0,0,.25),
+    transparent);
 
-    filter:blur(8px);
 }
 
 /* =========================================================
-   SHELF ITEMS
+   DECOR
 ========================================================= */
 
-.shelf-item{
+.decor{
+
     position:absolute;
-    bottom:18px;
+    z-index:25;
+}
+
+.jar{
+    width:90px;
+    height:120px;
+
+    left:22%;
+    top:48px;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(to bottom,
+    #d8b277,
+    #8b5d2d);
+
+    box-shadow:
+    inset 0 8px 15px rgba(255,255,255,.25),
+    inset 0 -15px 25px rgba(0,0,0,.4),
+    0 15px 25px rgba(0,0,0,.4);
 }
 
 .plant{
+    width:130px;
+    height:130px;
+
+    right:22%;
+    top:42px;
+}
+
+.plant .pot{
+
+    position:absolute;
+    bottom:0;
+
+    width:100px;
+    height:55px;
 
     left:15px;
 
-    width:78px;
-    height:78px;
-
-    border-radius:50%;
+    border-radius:0 0 18px 18px;
 
     background:
-    radial-gradient(circle at top,
-    #5c9a4e,
-    #2e5f2c);
+    linear-gradient(to bottom,
+    #9a6038,
+    #5d3419);
 
     box-shadow:
-    inset 0 10px 20px rgba(255,255,255,0.25),
-    0 8px 16px rgba(0,0,0,0.18);
+    inset 0 4px 0 rgba(255,255,255,.15),
+    inset 0 -12px 20px rgba(0,0,0,.4),
+    0 15px 25px rgba(0,0,0,.35);
 }
 
-.plant::before{
+.leaf{
+    position:absolute;
+    background:#4f8d4c;
+    border-radius:100px 100px 0 100px;
+    transform-origin:bottom center;
+}
+
+.leaf1{
+    width:45px;
+    height:80px;
+    left:18px;
+    top:0;
+    transform:rotate(-25deg);
+}
+
+.leaf2{
+    width:45px;
+    height:90px;
+    left:42px;
+    top:-8px;
+}
+
+.leaf3{
+    width:45px;
+    height:80px;
+    right:18px;
+    top:0;
+    transform:rotate(25deg);
+}
+
+/* =========================================================
+   TAVERN SIGN
+========================================================= */
+
+.sign-wrap{
+
+    position:absolute;
+
+    left:140px;
+    top:90px;
+
+    width:320px;
+    height:300px;
+
+    z-index:40;
+}
+
+.chain{
+
+    position:absolute;
+
+    width:4px;
+    height:110px;
+
+    background:
+    linear-gradient(to bottom,
+    #d4b06d,
+    #6e4d24);
+
+    top:0;
+
+    box-shadow:
+    0 0 10px rgba(255,185,90,.3);
+}
+
+.chain.left{
+    left:70px;
+}
+
+.chain.right{
+    right:70px;
+}
+
+.sign{
+
+    position:absolute;
+
+    bottom:0;
+
+    width:100%;
+    height:190px;
+
+    border-radius:30px;
+
+    transform:
+    perspective(1000px)
+    rotateY(7deg)
+    rotateZ(-2deg);
+
+    background:
+    linear-gradient(to bottom,
+    #9b6c3b 0%,
+    #6b421f 50%,
+    #3b2413 100%);
+
+    box-shadow:
+    0 35px 45px rgba(0,0,0,.55),
+    inset 0 5px 0 rgba(255,255,255,.1),
+    inset 0 -10px 25px rgba(0,0,0,.5),
+    0 0 40px rgba(255,173,80,.12);
+
+    border:6px solid #c89c5a;
+}
+
+.sign::before{
 
     content:"";
 
     position:absolute;
-    left:10px;
-    bottom:-12px;
+    inset:10px;
 
-    width:58px;
-    height:28px;
+    border-radius:20px;
 
-    border-radius:0 0 20px 20px;
-
-    background:
-    linear-gradient(to bottom,
-    #c8b39b,
-    #8b7157);
-
-    box-shadow:
-    inset 0 3px 4px rgba(255,255,255,0.35);
+    border:2px solid rgba(255,223,161,.25);
 }
 
-/* =========================================================
-   FRAMED QUOTE
-========================================================= */
+.sign-text{
 
-.quote-frame{
+    position:absolute;
 
-    left:130px;
-
-    width:90px;
-    height:110px;
-
-    border-radius:10px;
-
-    background:
-    linear-gradient(to bottom,
-    #f8ead0,
-    #e4d0aa);
-
-    border:8px solid #8a5a31;
-
-    box-shadow:
-    0 10px 16px rgba(0,0,0,0.18),
-    inset 0 0 0 3px rgba(255,255,255,0.3);
+    inset:0;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    text-align:center;
+    flex-direction:column;
 
-    font-family:'Cormorant Garamond',serif;
-    font-size:20px;
-    font-weight:700;
-    line-height:1.1;
-}
-
-/* =========================================================
-   LEFT RESTAURANT PANEL
-========================================================= */
-
-.left-panel{
-
-    position:absolute;
-
-    left:45px;
-    top:150px;
-
-    width:330px;
-
-    padding:30px;
-
-    border-radius:38px;
-
-    background:
-    linear-gradient(to bottom,
-    rgba(255,250,240,0.96),
-    rgba(245,230,200,0.95));
-
-    box-shadow:
-    0 25px 40px rgba(0,0,0,0.15),
-    inset 0 2px 2px rgba(255,255,255,0.8),
-    inset 0 -6px 10px rgba(0,0,0,0.05);
-
-    z-index:20;
-
-    backdrop-filter:blur(8px);
-}
-
-.left-panel::before{
-
-    content:"";
-
-    position:absolute;
-    inset:0;
-
-    border-radius:38px;
-
-    background:
-    linear-gradient(to bottom,
-    rgba(255,255,255,0.55),
-    transparent 40%);
-
-    pointer-events:none;
-}
-
-.panel-title{
-
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:54px;
-    line-height:0.95;
+    font-family:'Cinzel',serif;
 
     text-align:center;
 
-    color:#466536;
+    font-size:38px;
+    line-height:1.15;
 
-    margin-bottom:26px;
-}
-
-.add-row{
-
-    display:flex;
-    gap:12px;
-
-    margin-bottom:25px;
-}
-
-.add-row input{
-
-    flex:1;
-
-    border:none;
-    outline:none;
-
-    border-radius:20px;
-
-    padding:18px;
-
-    font-size:17px;
-
-    background:
-    linear-gradient(to bottom,
-    #f7f0e2,
-    #eadcc1);
-
-    box-shadow:
-    inset 0 4px 6px rgba(0,0,0,0.06),
-    inset 0 -2px 3px rgba(255,255,255,0.5);
-}
-
-.add-row button{
-
-    width:100px;
-
-    border:none;
-
-    border-radius:20px;
-
-    cursor:pointer;
-
-    font-size:24px;
-    font-weight:900;
-
-    color:white;
-
-    background:
-    linear-gradient(to bottom,
-    #7fa85f,
-    #4f742f);
-
-    box-shadow:
-    0 10px 20px rgba(0,0,0,0.18),
-    inset 0 3px 3px rgba(255,255,255,0.3),
-    inset 0 -4px 6px rgba(0,0,0,0.2);
-
-    transition:.2s;
-}
-
-.add-row button:hover{
-    transform:translateY(-2px);
-}
-
-/* =========================================================
-   RESTAURANT ITEMS
-========================================================= */
-
-.restaurant-item{
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:18px;
-
-    margin-bottom:14px;
-
-    border-radius:24px;
-
-    background:
-    linear-gradient(to bottom,
-    #fffdf9,
-    #f3e5cb);
-
-    box-shadow:
-    0 10px 18px rgba(0,0,0,0.08),
-    inset 0 2px 2px rgba(255,255,255,0.8);
-}
-
-.restaurant-name{
-
-    font-size:24px;
-    font-weight:900;
-
-    color:#5d432d;
-}
-
-.item-buttons{
-    display:flex;
-    gap:8px;
-}
-
-.item-buttons button{
-
-    border:none;
-
-    cursor:pointer;
-
-    border-radius:14px;
-
-    padding:10px 14px;
-
-    font-weight:900;
-}
-
-.cross-btn{
-
-    background:
-    linear-gradient(to bottom,
-    #88a964,
-    #5f7d42);
-
-    color:white;
-}
-
-.delete-btn{
-
-    background:
-    linear-gradient(to bottom,
-    #f8e0d8,
-    #efc3b4);
-
-    color:#965c4f;
-}
-
-/* =========================================================
-   TITLE AREA
-========================================================= */
-
-.title-wrap{
-
-    position:absolute;
-
-    left:50%;
-    top:40px;
-
-    transform:translateX(-50%);
-
-    text-align:center;
-
-    z-index:20;
-}
-
-.title{
-
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:108px;
-    line-height:0.9;
-
-    color:#355528;
+    color:#f5dfb0;
 
     text-shadow:
-    0 2px 0 rgba(255,255,255,0.6),
-    0 8px 18px rgba(0,0,0,0.15);
-}
-
-.subtitle{
-
-    margin-top:12px;
-
-    font-size:34px;
-
-    color:#735942;
+    0 2px 0 #3b2412,
+    0 8px 18px rgba(0,0,0,.5);
 }
 
 /* =========================================================
-   SPINNER STAGE
+   MACHINE HERO
 ========================================================= */
 
-.spinner-stage{
+.machine-stage{
 
     position:absolute;
 
-    left:50%;
-    top:240px;
-
-    transform:translateX(-50%);
-
-    width:700px;
+    width:760px;
     height:980px;
 
-    z-index:15;
+    left:50%;
+    top:130px;
+
+    transform:
+    translateX(-50%)
+    perspective(2200px)
+    rotateX(2deg);
+
+    z-index:60;
 }
 
-/* =========================================================
-   GOLD GLOW
-========================================================= */
+/* bloom */
 
-.spinner-stage::before{
+.machine-stage::before{
 
     content:"";
 
     position:absolute;
+
+    width:1200px;
+    height:1200px;
 
     left:50%;
     top:50%;
 
     transform:translate(-50%,-50%);
 
-    width:900px;
-    height:900px;
-
     background:
     radial-gradient(circle,
-    rgba(255,215,90,0.4) 0%,
-    rgba(255,190,70,0.12) 35%,
-    transparent 70%);
+    rgba(255,177,65,.45) 0%,
+    rgba(255,177,65,.15) 30%,
+    transparent 65%);
 
-    filter:blur(10px);
+    filter:blur(20px);
 
     pointer-events:none;
 }
 
-/* =========================================================
-   MACHINE FRAME
-========================================================= */
+/* OUTER FRAME */
 
-.machine-frame{
+.machine-outer{
 
     position:absolute;
 
-    left:50%;
-    top:0;
-
-    transform:translateX(-50%);
-
-    width:500px;
-    height:780px;
+    inset:0;
 
     border-radius:90px;
 
     background:
-
-    linear-gradient(145deg,
-    #f0ca76 0%,
-    #c1883b 14%,
-    #6e3e15 32%,
-    #2e1507 50%,
-    #8c5321 72%,
-    #e2b45c 100%);
+    linear-gradient(
+    180deg,
+    #ffdb9d 0%,
+    #d39b47 7%,
+    #8b5a23 20%,
+    #3b2313 40%,
+    #2b180d 50%,
+    #6f451d 75%,
+    #f0c36f 100%);
 
     box-shadow:
+    inset 0 5px 0 rgba(255,255,255,.3),
+    inset 0 -18px 25px rgba(0,0,0,.65),
+    0 60px 80px rgba(0,0,0,.65),
+    0 0 80px rgba(255,184,80,.2);
 
-    0 35px 70px rgba(0,0,0,0.35),
-
-    inset 0 3px 3px rgba(255,255,255,0.4),
-
-    inset 0 -18px 30px rgba(0,0,0,0.45),
-
-    inset 15px 0 20px rgba(255,255,255,0.15),
-
-    inset -15px 0 20px rgba(0,0,0,0.25);
+    overflow:hidden;
 }
 
-/* =========================================================
-   METAL REFLECTIONS
-========================================================= */
+/* reflection */
 
-.machine-frame::before{
+.machine-outer::before{
 
     content:"";
 
     position:absolute;
 
-    top:25px;
-    left:40px;
+    left:-120px;
+    top:-80px;
 
-    width:120px;
-    height:650px;
+    width:280px;
+    height:1200px;
 
     background:
     linear-gradient(to right,
-    rgba(255,255,255,0.22),
+    rgba(255,255,255,.25),
+    rgba(255,255,255,.04),
     transparent);
 
-    border-radius:999px;
+    transform:rotate(12deg);
 
-    transform:rotate(3deg);
+    filter:blur(6px);
 
-    filter:blur(2px);
+    opacity:.7;
 }
 
-.machine-frame::after{
+/* INNER */
 
-    content:"";
+.machine-inner{
 
     position:absolute;
 
-    right:35px;
-    top:25px;
-
-    width:70px;
-    height:650px;
-
-    background:
-    linear-gradient(to left,
-    rgba(255,255,255,0.14),
-    transparent);
-
-    border-radius:999px;
-}
-
-/* =========================================================
-   INNER TUNNEL
-========================================================= */
-
-.machine{
-
-    position:absolute;
-
-    inset:24px;
-
-    overflow:hidden;
+    inset:35px;
 
     border-radius:70px;
 
     background:
-
-    radial-gradient(circle at center,
-    #7f4418 0%,
-    #4e250c 35%,
-    #2c1206 100%);
+    linear-gradient(to bottom,
+    #29170d,
+    #110b07);
 
     box-shadow:
-    inset 0 0 50px rgba(0,0,0,0.9);
+    inset 0 0 80px rgba(0,0,0,.9),
+    inset 0 10px 20px rgba(255,255,255,.05);
 }
 
-/* =========================================================
-   CENTER GLOW SLOT
-========================================================= */
+/* SLOT */
+
+.machine-slot{
+
+    position:absolute;
+
+    left:55px;
+    right:55px;
+    top:90px;
+    bottom:180px;
+
+    overflow:hidden;
+
+    border-radius:55px;
+
+    background:
+    linear-gradient(to bottom,
+    #1a100b,
+    #000);
+
+    box-shadow:
+    inset 0 0 60px rgba(0,0,0,.9),
+    0 0 80px rgba(255,182,78,.18);
+}
+
+/* center glow */
 
 .center-glow{
 
     position:absolute;
 
-    left:18px;
-    right:18px;
+    left:25px;
+    right:25px;
 
     top:50%;
 
     transform:translateY(-50%);
 
-    height:128px;
+    height:150px;
 
-    border-radius:32px;
+    border-radius:35px;
 
-    border:4px solid #ffd65a;
+    border:4px solid rgba(255,224,145,.8);
 
     box-shadow:
-    0 0 45px rgba(255,212,72,0.95),
-    inset 0 0 30px rgba(255,255,220,0.35);
+    0 0 60px rgba(255,197,95,.9),
+    inset 0 0 35px rgba(255,236,176,.45),
+    0 0 120px rgba(255,180,70,.45);
 
-    z-index:20;
+    background:
+    linear-gradient(to bottom,
+    rgba(255,228,168,.12),
+    rgba(255,171,53,.05));
 
-    pointer-events:none;
+    z-index:30;
 }
 
 /* =========================================================
-   TRACK
+   SPINNER TRACK
 ========================================================= */
 
 #spinnerTrack{
 
-    position:relative;
+    position:absolute;
 
-    padding:40px 20px;
+    width:100%;
+
+    padding:120px 30px;
 
     transition:
-    transform 6s cubic-bezier(.12,.89,.16,1);
+    transform 6s cubic-bezier(.1,.9,.15,1);
+
 }
 
 /* =========================================================
@@ -752,41 +624,49 @@ body::after{
 
 .card{
 
-    height:125px;
-
-    margin-bottom:14px;
-
-    border-radius:32px;
-
     position:relative;
 
+    height:140px;
+
+    margin-bottom:18px;
+
+    border-radius:34px;
+
     overflow:hidden;
+
+    background:
+    linear-gradient(to bottom,
+    #f8e8c7 0%,
+    #e0c89c 50%,
+    #c79f68 100%);
+
+    box-shadow:
+    inset 0 3px 0 rgba(255,255,255,.4),
+    inset 0 -10px 18px rgba(0,0,0,.18),
+    0 18px 28px rgba(0,0,0,.35);
+
+    border:3px solid #d8b279;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    font-family:'Cormorant Garamond',serif;
-    font-size:52px;
+    font-family:'Cinzel',serif;
+
+    font-size:42px;
     font-weight:700;
 
-    color:#6a4527;
+    color:#533015;
 
-    background:
+    text-shadow:
+    0 1px 0 rgba(255,255,255,.4);
 
-    linear-gradient(to bottom,
-    #fffaf0 0%,
-    #f5e6c9 40%,
-    #e8d2ab 100%);
-
-    box-shadow:
-
-    inset 0 3px 3px rgba(255,255,255,0.8),
-
-    inset 0 -8px 10px rgba(0,0,0,0.08),
-
-    0 12px 18px rgba(0,0,0,0.18);
+    transform:
+    perspective(1000px)
+    rotateX(2deg);
 }
+
+/* paper texture */
 
 .card::before{
 
@@ -795,32 +675,34 @@ body::after{
     position:absolute;
     inset:0;
 
-    background:
-    repeating-linear-gradient(
-    45deg,
-    rgba(255,255,255,0.03),
-    rgba(255,255,255,0.03) 2px,
-    transparent 2px,
-    transparent 6px);
+    background-image:
+    radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
 
-    opacity:.6;
+    background-size:12px 12px;
+
+    opacity:.3;
 }
+
+/* edge shadow */
 
 .card::after{
 
-    content:"✦";
+    content:"";
 
     position:absolute;
 
-    right:18px;
+    inset:auto 0 0 0;
 
-    font-size:34px;
+    height:40px;
 
-    color:#c7a870;
+    background:
+    linear-gradient(to top,
+    rgba(0,0,0,.18),
+    transparent);
 }
 
 /* =========================================================
-   BRASS ARROWS
+   ARROWS
 ========================================================= */
 
 .arrow{
@@ -829,22 +711,12 @@ body::after{
 
     top:50%;
 
-    transform:translateY(-50%) rotate(45deg);
+    transform:translateY(-50%);
 
-    width:70px;
-    height:70px;
+    width:90px;
+    height:90px;
 
-    z-index:40;
-
-    background:
-    linear-gradient(145deg,
-    #ffd972,
-    #b97721);
-
-    box-shadow:
-    0 0 25px rgba(255,200,60,0.7),
-    inset 0 3px 3px rgba(255,255,255,0.4),
-    inset 0 -5px 6px rgba(0,0,0,0.25);
+    z-index:80;
 }
 
 .arrow::before{
@@ -853,41 +725,73 @@ body::after{
 
     position:absolute;
 
-    inset:16px;
+    inset:0;
+
+    clip-path:
+    polygon(0 50%,100% 0,100% 100%);
+
+    background:
+    linear-gradient(to bottom,
+    #ffd98a,
+    #d6922e,
+    #6d4315);
+
+    box-shadow:
+    inset 0 4px 0 rgba(255,255,255,.25),
+    0 0 35px rgba(255,193,80,.45);
+}
+
+.arrow::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:24px;
+    height:24px;
 
     border-radius:50%;
 
     background:
     radial-gradient(circle,
-    #fff4c7,
-    #ffba3d);
+    #fff7d8,
+    #ffc55c 60%,
+    #8f4f12);
+
+    left:55px;
+    top:33px;
 
     box-shadow:
-    0 0 14px rgba(255,220,100,0.8);
+    0 0 20px rgba(255,198,85,.7);
 }
 
 .left-arrow{
-    left:52px;
+    left:-38px;
 }
 
 .right-arrow{
-    right:52px;
+
+    right:-38px;
+
+    transform:
+    translateY(-50%)
+    rotateY(180deg);
 }
 
 /* =========================================================
    SPIN BUTTON
 ========================================================= */
 
-.spin-btn{
+.spin-button{
 
     position:absolute;
 
     left:50%;
-    bottom:80px;
+    bottom:-80px;
 
     transform:translateX(-50%);
 
-    width:360px;
+    width:380px;
     height:120px;
 
     border:none;
@@ -896,51 +800,71 @@ body::after{
 
     border-radius:999px;
 
-    font-family:'Cormorant Garamond',serif;
-    font-size:68px;
-    font-weight:700;
-
-    color:#fff9e8;
-
     background:
-
     linear-gradient(to bottom,
-    #5d943f 0%,
-    #356220 45%,
-    #234417 100%);
+    #ffdd9f 0%,
+    #d29339 20%,
+    #8b561d 55%,
+    #593311 100%);
 
     box-shadow:
+    inset 0 5px 0 rgba(255,255,255,.35),
+    inset 0 -15px 25px rgba(0,0,0,.5),
+    0 20px 35px rgba(0,0,0,.5),
+    0 0 45px rgba(255,178,70,.25);
 
-    0 18px 35px rgba(0,0,0,0.28),
-
-    inset 0 4px 4px rgba(255,255,255,0.3),
-
-    inset 0 -8px 10px rgba(0,0,0,0.28);
-
-    z-index:30;
-
-    transition:.18s;
+    overflow:hidden;
 }
 
-.spin-btn::before{
+.spin-button::before{
 
     content:"";
 
     position:absolute;
 
-    inset:8px;
+    left:-100px;
+    top:-40px;
 
-    border-radius:999px;
+    width:180px;
+    height:200px;
 
-    border:4px solid rgba(255,220,120,0.65);
+    background:
+    linear-gradient(to right,
+    rgba(255,255,255,.45),
+    transparent);
+
+    transform:rotate(15deg);
+
+    filter:blur(5px);
 }
 
-.spin-btn:hover{
+.spin-button span{
+
+    position:relative;
+
+    font-family:'Cinzel',serif;
+
+    font-size:54px;
+    font-weight:900;
+
+    color:#fff2cc;
+
+    text-shadow:
+    0 2px 0 #4d2f13,
+    0 10px 18px rgba(0,0,0,.45);
+}
+
+.spin-button:hover{
 
     transform:
     translateX(-50%)
-    translateY(-4px)
-    scale(1.02);
+    translateY(-4px);
+
+    box-shadow:
+    inset 0 5px 0 rgba(255,255,255,.35),
+    inset 0 -15px 25px rgba(0,0,0,.5),
+    0 28px 45px rgba(0,0,0,.55),
+    0 0 65px rgba(255,178,70,.35);
 }
 
 /* =========================================================
@@ -951,120 +875,22 @@ body::after{
 
     position:absolute;
 
-    left:50%;
-    bottom:8px;
-
-    transform:translateX(-50%);
-
-    font-size:42px;
-    font-weight:900;
-
-    color:#4f6b36;
-
-    text-shadow:
-    0 3px 10px rgba(255,255,255,0.7);
-
-    z-index:40;
-}
-
-/* =========================================================
-   HANGING SIGN
-========================================================= */
-
-.sign-wrap{
-
-    position:absolute;
-
-    right:95px;
-    top:55px;
-
-    width:250px;
-    height:360px;
-
-    z-index:20;
-}
-
-.chain{
-
-    position:absolute;
-
-    top:-120px;
-
-    width:5px;
-    height:130px;
-
-    background:
-    linear-gradient(to bottom,
-    #91623d,
-    #5d3a1d);
-
-    border-radius:999px;
-}
-
-.chain.left{
-    left:55px;
-}
-
-.chain.right{
-    right:55px;
-}
-
-.sign{
-
-    position:absolute;
-
-    top:0;
-    left:0;
-
     width:100%;
-    height:100%;
 
-    border-radius:28px;
-
-    transform:rotate(-2deg);
-
-    background:
-    linear-gradient(to bottom,
-    #f1cf97,
-    #dca964);
-
-    border:8px solid #7d4a22;
-
-    box-shadow:
-    0 20px 35px rgba(0,0,0,0.22),
-    inset 0 4px 5px rgba(255,255,255,0.4),
-    inset 0 -8px 10px rgba(0,0,0,0.18);
-}
-
-.sign::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:14px;
-
-    border-radius:20px;
-
-    border:2px solid rgba(120,70,35,0.35);
-}
-
-.sign-text{
-
-    position:absolute;
-
-    left:50%;
-    top:50%;
-
-    transform:translate(-50%,-50%);
+    bottom:-170px;
 
     text-align:center;
 
-    font-family:'Cormorant Garamond',serif;
-    font-size:62px;
-    line-height:0.95;
+    font-family:'Cinzel',serif;
 
-    color:#6a4325;
+    font-size:44px;
+    font-weight:700;
+
+    color:#ffe3b2;
+
+    text-shadow:
+    0 0 25px rgba(255,189,87,.55),
+    0 4px 15px rgba(0,0,0,.6);
 }
 
 /* =========================================================
@@ -1075,250 +901,391 @@ body::after{
 
     position:absolute;
 
-    left:0;
-    right:0;
-    bottom:-40px;
+    left:-5%;
+    right:-5%;
+    bottom:-140px;
 
-    height:240px;
+    height:330px;
+
+    border-radius:50% 50% 0 0;
 
     background:
-
     linear-gradient(to bottom,
-    #8b552d 0%,
-    #5f3519 60%,
-    #3a1e0f 100%);
+    #8b5b30 0%,
+    #5d3517 40%,
+    #2b1609 100%);
 
     box-shadow:
-    0 -25px 50px rgba(0,0,0,0.3);
+    inset 0 10px 0 rgba(255,255,255,.08),
+    inset 0 -30px 50px rgba(0,0,0,.55),
+    0 -20px 80px rgba(0,0,0,.6);
 
-    z-index:5;
+    z-index:120;
 }
+
+/* wood grain */
 
 .table::before{
 
     content:"";
 
     position:absolute;
+    inset:0;
 
-    left:0;
-    right:0;
-    top:-20px;
+    opacity:.08;
 
-    height:40px;
-
-    border-radius:50%;
-
-    background:
-    linear-gradient(to bottom,
-    #9d6538,
-    #74411f);
-
-    box-shadow:
-    inset 0 3px 3px rgba(255,255,255,0.15);
-}
-
-/* =========================================================
-   FLOWER VASE
-========================================================= */
-
-.vase{
-
-    position:absolute;
-
-    right:90px;
-    bottom:120px;
-
-    width:180px;
-    height:240px;
-
-    border-radius:
-    40% 40% 45% 45%
-    / 20% 20% 80% 80%;
-
-    background:
-
-    linear-gradient(to bottom,
-    #d7e7cb,
-    #9ab085);
-
-    box-shadow:
-    0 25px 30px rgba(0,0,0,0.25),
-    inset 0 6px 10px rgba(255,255,255,0.35),
-    inset 0 -10px 16px rgba(0,0,0,0.15);
-
-    z-index:12;
-}
-
-.vase::before{
-
-    content:"";
-
-    position:absolute;
-
-    left:50%;
-    top:-30px;
-
-    transform:translateX(-50%);
-
-    width:70px;
-    height:40px;
-
-    border-radius:20px;
-
-    background:
-    linear-gradient(to bottom,
-    #b6caa3,
-    #87996f);
+    background-image:
+    repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,.12) 0px,
+    rgba(255,255,255,.12) 2px,
+    transparent 2px,
+    transparent 16px);
 }
 
 /* =========================================================
    FLOWERS
 ========================================================= */
 
+.flower-area{
+
+    position:absolute;
+
+    right:120px;
+    bottom:120px;
+
+    width:260px;
+    height:260px;
+
+    z-index:140;
+}
+
+.vase{
+
+    position:absolute;
+
+    bottom:0;
+    left:80px;
+
+    width:110px;
+    height:140px;
+
+    border-radius:0 0 50px 50px;
+
+    background:
+    linear-gradient(to bottom,
+    #b7d7de 0%,
+    #6a98a4 45%,
+    #385661 100%);
+
+    box-shadow:
+    inset 0 6px 0 rgba(255,255,255,.25),
+    inset 0 -12px 20px rgba(0,0,0,.35),
+    0 18px 25px rgba(0,0,0,.45);
+}
+
 .flower{
 
     position:absolute;
 
-    border-radius:50%;
+    width:90px;
+    height:90px;
 
-    box-shadow:
-    0 8px 16px rgba(0,0,0,0.15);
+    border-radius:50%;
+}
+
+.flower::before,
+.flower::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:50%;
 }
 
 .flower1{
-
-    right:150px;
-    bottom:320px;
-
-    width:110px;
-    height:110px;
-
-    background:
-    radial-gradient(circle,
-    #ffe9f0,
-    #ff8eb2);
+    left:20px;
+    top:10px;
 }
 
 .flower2{
-
-    right:70px;
-    bottom:350px;
-
-    width:95px;
-    height:95px;
-
-    background:
-    radial-gradient(circle,
-    #fff3c8,
-    #ffcf67);
+    left:90px;
+    top:-10px;
 }
 
 .flower3{
+    left:150px;
+    top:20px;
+}
 
-    right:210px;
-    bottom:370px;
-
-    width:85px;
-    height:85px;
+.flower::before{
 
     background:
     radial-gradient(circle,
-    #fff6ff,
-    #d7b5ff);
+    #ffd7ea 0%,
+    #ff91b6 70%,
+    #b34d70 100%);
+
+    filter:blur(2px);
+}
+
+.flower::after{
+
+    transform:scale(.45);
+
+    background:
+    radial-gradient(circle,
+    #fff8cc,
+    #ffc15d);
+
+}
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+.particle{
+
+    position:absolute;
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#ffd791;
+
+    opacity:.55;
+
+    box-shadow:
+    0 0 15px rgba(255,192,82,.65);
+
+    animation:
+    float 12s linear infinite;
+}
+
+@keyframes float{
+
+    from{
+        transform:
+        translateY(0px);
+        opacity:0;
+    }
+
+    10%{
+        opacity:.6;
+    }
+
+    100%{
+        transform:
+        translateY(-900px);
+        opacity:0;
+    }
+}
+
+/* =========================================================
+   RESTAURANT LIST
+========================================================= */
+
+.restaurant-panel{
+
+    position:absolute;
+
+    left:60px;
+    bottom:90px;
+
+    width:360px;
+
+    z-index:140;
+}
+
+.restaurant-title{
+
+    font-family:'Cinzel',serif;
+
+    font-size:36px;
+
+    margin-bottom:20px;
+
+    color:#ffe1aa;
+
+    text-shadow:
+    0 4px 15px rgba(0,0,0,.45);
+}
+
+.add-row{
+
+    display:flex;
+    gap:10px;
+
+    margin-bottom:18px;
+}
+
+.add-row input{
+
+    flex:1;
+
+    height:60px;
+
+    border:none;
+    outline:none;
+
+    padding:0 20px;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(to bottom,
+    #f7e3c0,
+    #d6b07d);
+
+    font-size:18px;
+    font-weight:700;
+
+    color:#4b2d16;
+
+    box-shadow:
+    inset 0 4px 0 rgba(255,255,255,.35),
+    inset 0 -10px 18px rgba(0,0,0,.15);
+}
+
+.add-row button{
+
+    width:90px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(to bottom,
+    #ffd18a,
+    #b36c1f);
+
+    color:white;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+    inset 0 4px 0 rgba(255,255,255,.25),
+    0 10px 20px rgba(0,0,0,.35);
+}
+
+.restaurant-item{
+
+    background:
+    linear-gradient(to bottom,
+    rgba(255,235,195,.95),
+    rgba(206,161,101,.95));
+
+    border-radius:18px;
+
+    padding:16px;
+
+    margin-bottom:12px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    box-shadow:
+    inset 0 3px 0 rgba(255,255,255,.25),
+    0 10px 20px rgba(0,0,0,.3);
+}
+
+.restaurant-name{
+
+    color:#4d2e14;
+
+    font-weight:900;
+
+    font-size:18px;
 }
 
 /* =========================================================
    MOBILE
 ========================================================= */
 
-@media(max-width:1400px){
+@media(max-width:1100px){
 
-    .left-panel{
-        transform:scale(.85);
-        transform-origin:left top;
+    .machine-stage{
+        transform:
+        translateX(-50%)
+        scale(.72);
+    }
+
+    .restaurant-panel{
+        transform:scale(.9);
+        left:20px;
     }
 
     .sign-wrap{
-        transform:scale(.82);
+        display:none;
     }
 
-    .spinner-stage{
-        transform:
-        translateX(-50%)
-        scale(.88);
+    .flower-area{
+        display:none;
     }
 }
 
 </style>
+
 </head>
 <body>
 
-<div class="room-light"></div>
-
 <div class="room">
 
-    <div class="ceiling-shadow"></div>
+```
+<div class="ceiling-light"></div>
 
-    <!-- SHELF -->
+<div class="wall-shadow-left"></div>
+<div class="wall-shadow-right"></div>
 
-    <div class="shelf">
+<div class="shelf"></div>
 
-        <div class="shelf-item plant"></div>
+<div class="decor jar"></div>
 
-        <div class="shelf-item quote-frame">
-            Good<br>food<br>good<br>mood
+<div class="decor plant">
+    <div class="leaf leaf1"></div>
+    <div class="leaf leaf2"></div>
+    <div class="leaf leaf3"></div>
+    <div class="pot"></div>
+</div>
+
+<!-- SIGN -->
+
+<div class="sign-wrap">
+
+    <div class="chain left"></div>
+    <div class="chain right"></div>
+
+    <div class="sign">
+        <div class="sign-text">
+            Family<br>
+            Dinner<br>
+            Tonight
         </div>
-
     </div>
 
-    <!-- LEFT PANEL -->
+</div>
 
-    <div class="left-panel">
+<!-- MACHINE -->
 
-        <div class="panel-title">
-            ❦ Your<br>Restaurants ❦
-        </div>
+<div class="machine-stage">
 
-        <div class="add-row">
+    <div class="arrow left-arrow"></div>
+    <div class="arrow right-arrow"></div>
 
-            <input
-            id="restaurantInput"
-            placeholder="Add restaurant...">
+    <div class="machine-outer">
 
-            <button onclick="addRestaurant()">
-                Add
-            </button>
+        <div class="machine-inner">
 
-        </div>
-
-        <div id="restaurantList"></div>
-
-    </div>
-
-    <!-- TITLE -->
-
-    <div class="title-wrap">
-
-        <div class="title">
-            🍽 Family Dinner<br>Picker 🍽
-        </div>
-
-        <div class="subtitle">
-            Spin the magical dinner machine!
-        </div>
-
-    </div>
-
-    <!-- SPINNER -->
-
-    <div class="spinner-stage">
-
-        <div class="arrow left-arrow"></div>
-        <div class="arrow right-arrow"></div>
-
-        <div class="machine-frame">
-
-            <div class="machine">
+            <div class="machine-slot">
 
                 <div class="center-glow"></div>
 
@@ -1328,41 +1295,25 @@ body::after{
 
         </div>
 
-        <button class="spin-btn" onclick="spinWheel()">
-            SPIN
-        </button>
-
-        <div id="winnerText">
-            ✨ Tonight: ??? ✨
-        </div>
-
     </div>
 
-    <!-- HANGING SIGN -->
+    <button class="spin-button" onclick="spinWheel()">
+        <span>SPIN</span>
+    </button>
 
-    <div class="sign-wrap">
-
-        <div class="chain left"></div>
-        <div class="chain right"></div>
-
-        <div class="sign">
-
-            <div class="sign-text">
-                Let's<br>
-                have a<br>
-                great<br>
-                dinner!
-            </div>
-
-        </div>
-
+    <div id="winnerText">
+        ✨ Tonight: ??? ✨
     </div>
 
-    <!-- TABLE -->
+</div>
 
-    <div class="table"></div>
+<!-- TABLE -->
 
-    <!-- FLOWERS -->
+<div class="table"></div>
+
+<!-- FLOWERS -->
+
+<div class="flower-area">
 
     <div class="flower flower1"></div>
     <div class="flower flower2"></div>
@@ -1372,31 +1323,83 @@ body::after{
 
 </div>
 
+<!-- RESTAURANTS -->
+
+<div class="restaurant-panel">
+
+    <div class="restaurant-title">
+        Restaurants
+    </div>
+
+    <div class="add-row">
+
+        <input
+        id="restaurantInput"
+        placeholder="Add restaurant...">
+
+        <button onclick="addRestaurant()">
+            Add
+        </button>
+
+    </div>
+
+    <div id="restaurantList"></div>
+
+</div>
+```
+
+</div>
+
 <script>
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+for(let i = 0; i < 35; i++){
+
+    const p = document.createElement("div");
+
+    p.className = "particle";
+
+    p.style.left =
+    Math.random() * 100 + "%";
+
+    p.style.bottom =
+    "-20px";
+
+    p.style.animationDelay =
+    (Math.random() * 12) + "s";
+
+    p.style.animationDuration =
+    (10 + Math.random() * 8) + "s";
+
+    document.body.appendChild(p);
+}
 
 /* =========================================================
    DATA
 ========================================================= */
 
 let restaurants =
-JSON.parse(localStorage.getItem("restaurants")) || [
+JSON.parse(localStorage.getItem("restaurants"))
+|| [
 
     {name:"Olive Garden",crossed:false},
     {name:"Texas Roadhouse",crossed:false},
     {name:"Chick-fil-A",crossed:false},
     {name:"Panera Bread",crossed:false},
-    {name:"Outback",crossed:false},
-    {name:"Red Lobster",crossed:false}
+    {name:"Outback Steakhouse",crossed:false}
 
 ];
-
-const listEl =
-document.getElementById("restaurantList");
 
 const spinnerTrack =
 document.getElementById("spinnerTrack");
 
-let currentOffset = 6000;
+const restaurantList =
+document.getElementById("restaurantList");
+
+let currentOffset = 5000;
 
 /* =========================================================
    SAVE
@@ -1406,8 +1409,7 @@ function saveData(){
 
     localStorage.setItem(
     "restaurants",
-    JSON.stringify(restaurants)
-    );
+    JSON.stringify(restaurants));
 }
 
 /* =========================================================
@@ -1416,7 +1418,7 @@ function saveData(){
 
 function renderRestaurants(){
 
-    listEl.innerHTML = "";
+    restaurantList.innerHTML = "";
 
     restaurants.forEach((r,index)=>{
 
@@ -1427,40 +1429,17 @@ function renderRestaurants(){
         "restaurant-item";
 
         item.innerHTML = `
-
             <div class="restaurant-name"
             style="
-            ${r.crossed
-            ? 'opacity:.4;text-decoration:line-through;'
-            : ''}">
-
+            ${r.crossed ?
+            'opacity:.45;text-decoration:line-through;' :
+            ''}
+            ">
                 ${r.name}
-
-            </div>
-
-            <div class="item-buttons">
-
-                <button
-                class="cross-btn"
-                onclick="toggleCross(${index})">
-
-                    ${r.crossed ? 'Undo' : 'Cross Off'}
-
-                </button>
-
-                <button
-                class="delete-btn"
-                onclick="deleteRestaurant(${index})">
-
-                    🗑
-
-                </button>
-
             </div>
         `;
 
-        listEl.appendChild(item);
-
+        restaurantList.appendChild(item);
     });
 
     renderSpinner();
@@ -1469,7 +1448,7 @@ function renderRestaurants(){
 }
 
 /* =========================================================
-   SPINNER
+   SPINNER BUILD
 ========================================================= */
 
 function renderSpinner(){
@@ -1477,13 +1456,11 @@ function renderSpinner(){
     spinnerTrack.innerHTML = "";
 
     const active =
-    restaurants.filter(r => !r.crossed);
-
-    if(active.length === 0) return;
+    restaurants.filter(r=>!r.crossed);
 
     const repeated = [];
 
-    for(let i = 0; i < 400; i++){
+    for(let i = 0; i < 250; i++){
 
         repeated.push(...active);
     }
@@ -1508,9 +1485,7 @@ function renderSpinner(){
 function addRestaurant(){
 
     const input =
-    document.getElementById(
-    "restaurantInput"
-    );
+    document.getElementById("restaurantInput");
 
     const value =
     input.value.trim();
@@ -1529,65 +1504,60 @@ function addRestaurant(){
 }
 
 /* =========================================================
-   TOGGLE
-========================================================= */
-
-function toggleCross(index){
-
-    restaurants[index].crossed =
-    !restaurants[index].crossed;
-
-    renderRestaurants();
-}
-
-/* =========================================================
-   DELETE
-========================================================= */
-
-function deleteRestaurant(index){
-
-    restaurants.splice(index,1);
-
-    renderRestaurants();
-}
-
-/* =========================================================
    SPIN
 ========================================================= */
 
 function spinWheel(){
 
     const active =
-    restaurants.filter(
-    r => !r.crossed
-    );
+    restaurants.filter(r=>!r.crossed);
 
-    if(active.length === 0){
-
-        alert("Add restaurants first");
-
-        return;
-    }
-
-    document.getElementById(
-    "winnerText"
-    ).innerHTML =
-    "✨ Tonight: ??? ✨";
+    if(active.length === 0) return;
 
     const winnerIndex =
-    Math.floor(
-    Math.random() * active.length
-    );
+    Math.floor(Math.random() * active.length);
 
     const winner =
     active[winnerIndex];
 
-    const cardHeight = 139;
+    const cardHeight = 158;
+
+    const machine =
+    document.querySelector(".machine-slot");
+
+    const machineHeight =
+    machine.offsetHeight;
+
+    const trackHeight =
+    spinnerTrack.scrollHeight;
+
+    const visibleBottom =
+    currentOffset + machineHeight;
+
+    const loopHeight =
+    active.length * cardHeight;
+
+    if(visibleBottom >
+    trackHeight - machineHeight){
+
+        currentOffset -=
+        loopHeight * 120;
+
+        spinnerTrack.style.transition =
+        "none";
+
+        spinnerTrack.style.transform =
+        `translateY(-${currentOffset}px)`;
+
+        spinnerTrack.offsetHeight;
+    }
 
     const currentIndex =
-    Math.round(
-    currentOffset / cardHeight
-    );
+    Math.round(currentOffset / cardHeight);
+
+    const spinsForward =
+    (Math.floor(Math.random() * 10) + 24)
+    * active.length;
 
     const currentLoopIndex =
     currentIndex % active.length;
@@ -1597,43 +1567,39 @@ function spinWheel(){
 
     if(moveToWinner < 0){
 
-        moveToWinner += active.length;
+        moveToWinner +=
+        active.length;
     }
-
-    const spinsForward =
-    (Math.floor(Math.random()*8)+20)
-    * active.length;
 
     const targetIndex =
     currentIndex +
     spinsForward +
     moveToWinner;
 
-    const centerOffset = 275;
+    const centerOffset = 335;
 
     currentOffset =
     (targetIndex * cardHeight)
     - centerOffset;
 
     spinnerTrack.style.transition =
-    "transform 6s cubic-bezier(.12,.89,.16,1)";
+    "transform 6.5s cubic-bezier(.08,.92,.13,1)";
 
     spinnerTrack.style.transform =
     `translateY(-${currentOffset}px)`;
 
+    document.getElementById("winnerText")
+    .innerHTML =
+    `✨ Tonight: ??? ✨`;
+
     setTimeout(()=>{
 
-        document.getElementById(
-        "winnerText"
-        ).innerHTML =
+        document.getElementById("winnerText")
+        .innerHTML =
         `✨ Tonight: ${winner.name} ✨`;
 
-    },6000);
+    },6500);
 }
-
-/* =========================================================
-   START
-========================================================= */
 
 renderRestaurants();
 
@@ -1641,4 +1607,3 @@ renderRestaurants();
 
 </body>
 </html>
-```
