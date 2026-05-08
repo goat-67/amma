@@ -2507,15 +2507,15 @@ function renderWheel(){
 
     }
 
-    const repeated = [
+   const repeated = [];
 
-        ...active,
-        ...active,
-        ...active,
-        ...active,
-        ...active
+for(let i = 0; i < 18; i++){
 
-    ];
+    repeated.push(
+        active[i % active.length]
+    );
+
+}
 
     repeated.forEach((r)=>{
 
@@ -2588,7 +2588,7 @@ function spinWheel(){
     loops + winnerIndex;
 
     const offset =
-    (finalIndex * cardHeight) - 190;
+    (finalIndex * cardHeight) - 228;
 
     track.style.transition =
     "transform 5.8s cubic-bezier(.08,.72,.18,1)";
