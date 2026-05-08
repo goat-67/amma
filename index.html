@@ -690,14 +690,19 @@ function spinWheel(){
 
     const cardHeight = 139;
 
-    // if too far down, secretly reset FIRST
-    const resetPoint =
-    active.length * cardHeight * 20;
+    const totalCards =
+    spinnerTrack.children.length;
 
-    if(currentOffset > resetPoint){
+    const loopHeight =
+    active.length * cardHeight;
 
-        currentOffset =
-        active.length * cardHeight * 10;
+    // if getting near bottom, instantly move back upward
+    // while preserving same visible position
+    if(currentOffset >
+    ((totalCards * cardHeight) - 4000)){
+
+        currentOffset -=
+        loopHeight * 30;
 
         spinnerTrack.style.transition = "none";
 
@@ -707,7 +712,7 @@ function spinWheel(){
         spinnerTrack.offsetHeight;
     }
 
-    // now do normal animated spin
+    // continue spinning downward forever
     const extraSpins =
     (Math.floor(Math.random() * 10) + 18)
     * active.length;
@@ -729,8 +734,6 @@ function spinWheel(){
     `✨ Tonight: ${winner.name} ✨`;
 
 }
-
-
 renderRestaurants();
 
 </script>
