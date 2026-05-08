@@ -17,134 +17,173 @@
 }
 
 body{
-    background:
-    radial-gradient(circle at top,#fff8ea 0%,#f6eddc 40%,#efe3cd 100%);
     min-height:100vh;
     overflow-x:hidden;
+
     font-family:'Nunito',sans-serif;
     color:#5a4635;
+
+    background:
+    radial-gradient(circle at top,
+    rgba(255,244,210,0.95) 0%,
+    rgba(245,230,200,0.92) 25%,
+    rgba(225,205,175,0.96) 60%,
+    rgba(205,180,145,1) 100%);
+
+    position:relative;
 }
 
-/* BACKGROUND DECOR */
+body::before{
+    content:"";
 
-.bg-glow{
     position:fixed;
     inset:0;
-    pointer-events:none;
-    background:
-    radial-gradient(circle at center,
-    rgba(255,221,120,0.18) 0%,
-    transparent 35%);
-}
 
-/* MAIN LAYOUT */
+    pointer-events:none;
+
+    opacity:0.18;
+
+    background-image:
+    repeating-radial-gradient(circle at 0 0,
+    transparent 0,
+    transparent 6px,
+    rgba(120,90,50,0.05) 7px),
+
+    repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,0.04),
+    rgba(255,255,255,0.04) 1px,
+    transparent 1px,
+    transparent 4px);
+}
 
 .page{
     width:100%;
     min-height:100vh;
+
     display:grid;
-    grid-template-columns:340px 1fr 260px;
-    gap:40px;
+    grid-template-columns:340px 1fr 280px;
+
+    gap:45px;
+
     padding:30px;
 }
 
 /* LEFT PANEL */
 
 .left-panel{
-    background:#fff8ec;
-    border-radius:32px;
-    padding:25px;
-    box-shadow:
-    0 15px 40px rgba(0,0,0,0.08),
-    inset 0 0 0 2px #ebddc4;
-    position:relative;
-}
 
-.left-panel::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:32px;
     background:
-    linear-gradient(to bottom,
-    rgba(255,255,255,0.7),
-    transparent 30%);
-    pointer-events:none;
+    linear-gradient(
+    to bottom,
+    rgba(255,248,236,0.96),
+    rgba(245,232,205,0.96));
+
+    border-radius:36px;
+
+    padding:24px;
+
+    position:relative;
+
+    box-shadow:
+    inset 0 0 0 3px #ead7b7,
+    0 20px 45px rgba(0,0,0,0.14);
 }
 
 .panel-title{
+
     font-family:'Cormorant Garamond',serif;
-    font-size:46px;
-    color:#49693c;
+
+    font-size:52px;
+
     text-align:center;
-    font-weight:700;
-    margin-bottom:25px;
+
+    color:#486638;
+
+    margin-bottom:24px;
 }
 
 .add-row{
     display:flex;
     gap:12px;
-    margin-bottom:25px;
-    width:100%;
+    margin-bottom:24px;
 }
 
 .add-row input{
+
     flex:1;
     min-width:0;
 
     border:none;
+
     border-radius:18px;
+
     padding:18px;
-    background:#f2e6d3;
-    font-size:17px;
+
+    background:#f4ebdd;
+
+    font-size:16px;
+
     outline:none;
-    color:#5a4635;
 }
 
 .add-row button{
 
     width:92px;
-    min-width:92px;
-    flex-shrink:0;
 
     border:none;
 
+    border-radius:18px;
+
     background:
-    linear-gradient(to bottom,#8ead73,#6d8f58);
+    linear-gradient(
+    to bottom,
+    #89ad67,
+    #5e7e46);
 
     color:white;
 
-    border-radius:18px;
+    font-weight:900;
 
     font-size:18px;
-    font-weight:900;
 
     cursor:pointer;
 
     box-shadow:
-    inset 0 2px 0 rgba(255,255,255,0.3),
-    0 6px 12px rgba(0,0,0,0.12);
+    inset 0 3px 0 rgba(255,255,255,0.25),
+    0 8px 16px rgba(0,0,0,0.14);
 }
 
-/* RESTAURANT ITEMS */
-
 .restaurant-item{
-    background:#fffdf7;
+
+    background:
+    linear-gradient(
+    to bottom,
+    #fffdf8,
+    #f5ebd7);
+
     border-radius:22px;
-    padding:18px;
+
+    padding:16px;
+
     margin-bottom:14px;
+
     display:flex;
     justify-content:space-between;
     align-items:center;
+
     box-shadow:
-    0 5px 14px rgba(0,0,0,0.06),
-    inset 0 0 0 2px #eee0c7;
+    inset 0 0 0 2px #eadcc3,
+    0 8px 18px rgba(0,0,0,0.08);
 }
 
 .restaurant-name{
+
     font-size:22px;
     font-weight:800;
-    max-width:150px;
+
+    max-width:140px;
+
     overflow-wrap:break-word;
 }
 
@@ -154,22 +193,28 @@ body{
 }
 
 .item-buttons button{
+
     border:none;
+
     border-radius:14px;
+
     padding:10px 14px;
-    cursor:pointer;
+
     font-weight:800;
-    font-size:14px;
+
+    cursor:pointer;
 }
 
 .cross-btn{
-    background:#7d9d63;
+
+    background:#78975f;
     color:white;
 }
 
 .delete-btn{
-    background:#f5d9d0;
-    color:#9b5f51;
+
+    background:#f4d9d1;
+    color:#9a5e50;
 }
 
 /* CENTER */
@@ -180,155 +225,210 @@ body{
 }
 
 .title{
+
     font-family:'Cormorant Garamond',serif;
-    font-size:92px;
+
+    font-size:96px;
+
+    color:#35552b;
+
     line-height:0.95;
-    color:#355a2d;
-    font-weight:700;
-    margin-top:10px;
+
+    text-shadow:
+    0 2px 0 #fff8df,
+    0 6px 20px rgba(0,0,0,0.15);
 }
 
 .subtitle{
-    font-size:34px;
-    margin-top:15px;
-    color:#6b5647;
+
+    margin-top:18px;
+
+    font-size:28px;
+
+    color:#6c5648;
 }
 
 /* MACHINE */
 
 .machine-wrap{
+
+    width:520px;
+
     margin:auto;
-    margin-top:35px;
-    width:470px;
+
+    margin-top:40px;
+
     position:relative;
 }
 
-/* GOLD GLOW */
-
 .machine-wrap::before{
+
     content:"";
+
     position:absolute;
+
     left:50%;
     top:50%;
+
     transform:translate(-50%,-50%);
-    width:760px;
-    height:760px;
+
+    width:850px;
+    height:850px;
+
+    border-radius:50%;
+
     background:
     radial-gradient(circle,
-    rgba(255,211,92,0.35) 0%,
-    rgba(255,211,92,0.12) 25%,
-    transparent 60%);
+    rgba(255,216,105,0.45) 0%,
+    rgba(255,210,80,0.15) 30%,
+    transparent 65%);
+
     pointer-events:none;
 }
 
-/* OUTER FRAME */
-
 .machine-frame{
-    position:relative;
-    padding:18px;
 
-    border-radius:70px;
+    position:relative;
+
+    padding:22px;
+
+    border-radius:84px;
 
     background:
-    linear-gradient(to bottom,
-    #d7a14d 0%,
-    #7a4d1f 20%,
-    #4d2d14 50%,
-    #9f6a2b 80%,
-    #d8a14d 100%);
+    linear-gradient(
+    145deg,
+    #f3ca72 0%,
+    #b97b2f 12%,
+    #6b3d16 32%,
+    #2f1607 52%,
+    #8f5a24 76%,
+    #f0be63 100%);
 
     box-shadow:
-    inset 0 0 20px rgba(255,255,255,0.3),
-    inset 0 -10px 30px rgba(0,0,0,0.5),
-    0 25px 50px rgba(0,0,0,0.25);
+    inset 0 3px 8px rgba(255,255,255,0.5),
+    inset 0 -10px 25px rgba(0,0,0,0.6),
+    0 40px 70px rgba(0,0,0,0.35),
+    0 0 45px rgba(255,196,70,0.25);
 }
-
-/* INNER MACHINE */
 
 .machine{
+
     height:760px;
+
     overflow:hidden;
-    border-radius:58px;
+
+    border-radius:64px;
+
     position:relative;
 
     background:
-    linear-gradient(to bottom,
-    #6a4423 0%,
-    #412310 100%);
+    linear-gradient(
+    to bottom,
+    #643b1c,
+    #2e1407);
 
     box-shadow:
-    inset 0 0 40px rgba(0,0,0,0.8);
+    inset 0 0 45px rgba(0,0,0,0.8);
 }
 
-/* TRACK */
+.machine::before{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    border-radius:64px;
+
+    background:
+    radial-gradient(circle at center,
+    rgba(255,180,60,0.18) 0%,
+    transparent 45%);
+
+    pointer-events:none;
+}
 
 #spinnerTrack{
+
     transition:transform 6s cubic-bezier(.12,.89,.16,1);
+
     padding:40px 20px;
 }
 
-/* CARDS */
-
 .card{
+
     height:125px;
 
     margin-bottom:14px;
 
-    border-radius:28px;
+    border-radius:30px;
 
     background:
-    linear-gradient(to bottom,
-    #fff7e6 0%,
-    #f0dcc0 100%);
+    linear-gradient(
+    to bottom,
+    #fff7e6,
+    #edd9b5);
 
     display:flex;
     align-items:center;
     justify-content:center;
 
     font-family:'Cormorant Garamond',serif;
+
     font-size:48px;
     font-weight:700;
 
-    color:#5a3d24;
-
-    box-shadow:
-    inset 0 0 0 3px #ecd8b3,
-    0 10px 20px rgba(0,0,0,0.18);
+    color:#5b3c22;
 
     position:relative;
+
+    box-shadow:
+    inset 0 0 0 3px #ead0a5,
+    inset 0 10px 20px rgba(255,255,255,0.35),
+    0 10px 20px rgba(0,0,0,0.22);
+}
+
+.card::before,
+.card::after{
+
+    content:"✦";
+
+    position:absolute;
+
+    color:#c8a97c;
+
+    font-size:34px;
 }
 
 .card::before{
-    content:"✦";
-    position:absolute;
-    left:18px;
-    opacity:0.35;
+    left:22px;
 }
 
 .card::after{
-    content:"✦";
-    position:absolute;
-    right:18px;
-    opacity:0.35;
+    right:22px;
 }
 
-/* WINNER CENTER */
-
 .center-highlight{
+
     position:absolute;
-    left:20px;
-    right:20px;
+
+    left:16px;
+    right:16px;
+
     top:50%;
+
     transform:translateY(-50%);
+
     height:125px;
 
-    border-radius:28px;
+    border-radius:30px;
 
-    border:4px solid #ffdb6c;
+    border:5px solid #ffd76b;
 
     box-shadow:
-    0 0 25px rgba(255,220,110,0.8),
-    inset 0 0 20px rgba(255,240,180,0.5);
+    0 0 18px rgba(255,215,90,0.95),
+    0 0 60px rgba(255,190,40,0.55),
+    inset 0 0 25px rgba(255,240,180,0.65);
 
     pointer-events:none;
 }
@@ -336,156 +436,235 @@ body{
 /* ARROWS */
 
 .arrow{
+
     position:absolute;
+
     top:50%;
-    transform:translateY(-50%);
-    z-index:10;
-    width:0;
-    height:0;
+
+    transform:
+    translateY(-50%)
+    rotate(45deg);
+
+    width:56px;
+    height:56px;
+
+    z-index:20;
+
+    background:
+    linear-gradient(
+    145deg,
+    #ffd66b,
+    #c88619,
+    #7a4607);
+
+    border:
+    4px solid #f6d57a;
+
+    box-shadow:
+    0 0 18px rgba(255,210,90,0.7);
 }
 
 .left-arrow{
-    left:-34px;
-    border-top:28px solid transparent;
-    border-bottom:28px solid transparent;
-    border-right:40px solid #d9a638;
+    left:-22px;
 }
 
 .right-arrow{
-    right:-34px;
-    border-top:28px solid transparent;
-    border-bottom:28px solid transparent;
-    border-left:40px solid #d9a638;
+    right:-22px;
 }
 
-/* SPIN BUTTON */
+/* TABLE */
+
+.table{
+
+    width:760px;
+    height:180px;
+
+    margin:auto;
+    margin-top:-40px;
+
+    border-radius:40px 40px 120px 120px;
+
+    background:
+    linear-gradient(
+    to bottom,
+    #9a6233,
+    #5a3418);
+
+    box-shadow:
+    inset 0 10px 18px rgba(255,255,255,0.15),
+    inset 0 -15px 20px rgba(0,0,0,0.35),
+    0 18px 40px rgba(0,0,0,0.3);
+}
+
+/* BUTTON */
 
 .spin-btn{
-    margin-top:30px;
+
+    margin-top:-70px;
 
     border:none;
 
     border-radius:999px;
 
-    padding:26px 110px;
+    padding:28px 130px;
 
     background:
-    linear-gradient(to bottom,
-    #4d7d3c 0%,
-    #2d5c2a 100%);
+    linear-gradient(
+    to bottom,
+    #5f9f44 0%,
+    #2f6625 52%,
+    #21491d 100%);
 
-    color:white;
+    color:#fff9df;
 
     font-family:'Cormorant Garamond',serif;
-    font-size:64px;
+
+    font-size:72px;
     font-weight:700;
+
+    letter-spacing:2px;
 
     cursor:pointer;
 
-    box-shadow:
-    inset 0 4px 0 rgba(255,255,255,0.3),
-    0 12px 30px rgba(0,0,0,0.22);
+    position:relative;
 
-    transition:0.2s;
+    box-shadow:
+    inset 0 4px 0 rgba(255,255,255,0.35),
+    inset 0 -6px 0 rgba(0,0,0,0.35),
+    0 14px 30px rgba(0,0,0,0.3),
+    0 0 30px rgba(90,180,60,0.22);
+
+    transition:0.18s;
+
+    z-index:10;
 }
 
 .spin-btn:hover{
-    transform:translateY(-3px) scale(1.02);
+    transform:
+    translateY(-4px)
+    scale(1.03);
+}
+
+.spin-btn:active{
+    transform:
+    translateY(4px)
+    scale(0.99);
 }
 
 #winnerText{
-    margin-top:24px;
-    font-size:42px;
+
+    margin-top:22px;
+
+    font-size:46px;
+
     font-weight:900;
-    color:#49693c;
+
+    color:#466638;
 }
 
 /* RIGHT SIDE */
 
 .right-panel{
+
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:flex-start;
+
     gap:40px;
 }
 
 .sign{
+
     position:relative;
 
-    background:#f6e4c9;
-    border:5px solid #bc8752;
-    border-radius:24px;
+    width:230px;
 
-    padding:35px;
-    width:220px;
+    padding:36px 26px;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(
+    to bottom,
+    #f7d39b,
+    #d69a56);
+
+    border:
+    6px solid #73421d;
+
+    color:#60381c;
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:48px;
+
+    line-height:1.05;
 
     text-align:center;
 
-    font-family:'Cormorant Garamond',serif;
-    font-size:46px;
-    line-height:1.1;
-
-    color:#7c5436;
-
     box-shadow:
-    0 10px 25px rgba(0,0,0,0.1);
+    inset 0 3px 8px rgba(255,255,255,0.35),
+    inset 0 -8px 10px rgba(0,0,0,0.2),
+    0 14px 24px rgba(0,0,0,0.2);
 
-    transform:rotate(-2deg);
+    transform:rotate(-3deg);
 }
-
-/* hanging ropes */
 
 .sign::before,
 .sign::after{
+
     content:"";
 
     position:absolute;
-    top:-55px;
 
-    width:4px;
-    height:55px;
+    top:-70px;
 
-    background:#9b6b43;
+    width:5px;
+    height:70px;
+
+    background:#8a5a33;
 
     border-radius:999px;
 }
 
 .sign::before{
-    left:40px;
+    left:42px;
 }
 
 .sign::after{
-    right:40px;
+    right:42px;
 }
 
 .flowers{
 
-    width:180px;
-    height:180px;
+    width:220px;
+    height:260px;
+
+    border-radius:28px;
+
+    background:
+    radial-gradient(circle at center,
+    rgba(255,255,255,0.7),
+    rgba(255,255,255,0));
+
+    position:relative;
+}
+
+.flowers::before{
+
+    content:"🌼 🌸 🌿";
+
+    position:absolute;
+    inset:0;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    border-radius:50%;
+    font-size:90px;
 
-    background:
-    radial-gradient(circle at top,
-    #ffd7e2 0%,
-    #f6a9be 60%,
-    #ea88a7 100%);
-
-    color:#fff4f7;
-
-    font-size:120px;
-
-    box-shadow:
-    inset 0 10px 20px rgba(255,255,255,0.35),
-    inset 0 -12px 25px rgba(0,0,0,0.08),
-    0 10px 30px rgba(0,0,0,0.12);
-
-    transform:rotate(-8deg);
+    filter:
+    drop-shadow(0 8px 12px rgba(0,0,0,0.2));
 }
 
 /* MOBILE */
@@ -500,29 +679,23 @@ body{
         display:none;
     }
 
-    .left-panel{
-        order:2;
-    }
-
-    .center{
-        order:1;
-    }
-
     .machine-wrap{
         width:100%;
-        max-width:470px;
+        max-width:520px;
+    }
+
+    .table{
+        width:100%;
     }
 
     .title{
-        font-size:62px;
+        font-size:64px;
     }
 }
 
 </style>
 </head>
 <body>
-
-<div class="bg-glow"></div>
 
 <div class="page">
 
@@ -552,7 +725,7 @@ body{
         </div>
 
         <div class="subtitle">
-            Pick tonight's restaurant by spinning the wheel!!!
+            Spin the magical dinner wheel!
         </div>
 
         <div class="machine-wrap">
@@ -574,11 +747,15 @@ body{
 
         </div>
 
+        <div class="table"></div>
+
         <button class="spin-btn" onclick="spinWheel()">
             SPIN
         </button>
 
-        <div id="winnerText"></div>
+        <div id="winnerText">
+            ✨ Tonight: ??? ✨
+        </div>
 
     </div>
 
@@ -593,9 +770,7 @@ body{
             dinner!
         </div>
 
-        <div class="flowers">
-              ✿
-        </div>
+        <div class="flowers"></div>
 
     </div>
 
@@ -662,7 +837,6 @@ function renderRestaurants(){
     saveData();
 }
 
-
 function renderSpinner(){
 
     spinnerTrack.innerHTML = "";
@@ -671,7 +845,6 @@ function renderSpinner(){
 
     if(active.length === 0) return;
 
-    // HUGE repeated list so it never hits blank space
     const repeated = [];
 
     for(let i = 0; i < 300; i++){
@@ -689,7 +862,6 @@ function renderSpinner(){
         spinnerTrack.appendChild(card);
 
     });
-
 }
 
 let currentOffset = 5000;
@@ -727,8 +899,6 @@ function deleteRestaurant(index){
     renderRestaurants();
 }
 
-
-
 function spinWheel(){
 
     const active = restaurants.filter(r => !r.crossed);
@@ -738,6 +908,10 @@ function spinWheel(){
         return;
     }
 
+    document.getElementById("winnerText")
+    .innerHTML =
+    `✨ Tonight: ??? ✨`;
+
     const winnerIndex =
     Math.floor(Math.random() * active.length);
 
@@ -745,70 +919,60 @@ function spinWheel(){
 
     const cardHeight = 139;
 
-    const totalCards =
-    spinnerTrack.children.length;
-
     const loopHeight =
     active.length * cardHeight;
 
-    // if getting near bottom, instantly move back upward
-    // while preserving same visible position
     const machine =
-document.querySelector(".machine");
+    document.querySelector(".machine");
 
-const machineHeight =
-machine.offsetHeight;
+    const machineHeight =
+    machine.offsetHeight;
 
-const trackHeight =
-spinnerTrack.scrollHeight;
+    const trackHeight =
+    spinnerTrack.scrollHeight;
 
-// exact visible bottom edge
-const visibleBottom =
-currentOffset + machineHeight;
+    const visibleBottom =
+    currentOffset + machineHeight;
 
-// reset BEFORE visible bottom reaches end
-if(visibleBottom > trackHeight - machineHeight){
+    if(visibleBottom > trackHeight - machineHeight){
 
-    currentOffset -= loopHeight * 50;
+        currentOffset -= loopHeight * 50;
 
-    spinnerTrack.style.transition = "none";
+        spinnerTrack.style.transition = "none";
 
-    spinnerTrack.style.transform =
-    `translateY(-${currentOffset}px)`;
+        spinnerTrack.style.transform =
+        `translateY(-${currentOffset}px)`;
 
-    spinnerTrack.offsetHeight;
-}
+        spinnerTrack.offsetHeight;
+    }
 
-    // continue spinning downward forever
+    const currentIndex =
+    Math.round(currentOffset / cardHeight);
 
-const currentIndex =
-Math.round(currentOffset / cardHeight);
+    const spinsForward =
+    (Math.floor(Math.random() * 10) + 18)
+    * active.length;
 
-const spinsForward =
-(Math.floor(Math.random() * 10) + 18)
-* active.length;
+    const currentLoopIndex =
+    currentIndex % active.length;
 
-// find where we are INSIDE the loop
-const currentLoopIndex =
-currentIndex % active.length;
+    let moveToWinner =
+    winnerIndex - currentLoopIndex;
 
-// calculate how far to move to hit winner
-let moveToWinner =
-winnerIndex - currentLoopIndex;
+    if(moveToWinner < 0){
+        moveToWinner += active.length;
+    }
 
-if(moveToWinner < 0){
-    moveToWinner += active.length;
-}
+    const targetIndex =
+    currentIndex +
+    spinsForward +
+    moveToWinner;
 
-const targetIndex =
-currentIndex +
-spinsForward +
-moveToWinner;
+    const centerOffset = 275;
 
-const centerOffset = 275;
-
-currentOffset =
-(targetIndex * cardHeight) - centerOffset;
+    currentOffset =
+    (targetIndex * cardHeight)
+    - centerOffset;
 
     spinnerTrack.style.transition =
     "transform 6s cubic-bezier(.12,.89,.16,1)";
@@ -816,15 +980,15 @@ currentOffset =
     spinnerTrack.style.transform =
     `translateY(-${currentOffset}px)`;
 
-   setTimeout(() => {
+    setTimeout(() => {
 
-    document.getElementById("winnerText")
-    .innerHTML =
-    `✨ Tonight: ${winner.name} ✨`;
+        document.getElementById("winnerText")
+        .innerHTML =
+        `✨ Tonight: ${winner.name} ✨`;
 
-}, 6000);
-
+    }, 6000);
 }
+
 renderRestaurants();
 
 </script>
