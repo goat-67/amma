@@ -738,8 +738,10 @@ currentIndex +
 spinsForward +
 moveToWinner;
 
+const centerOffset = 260;
+
 currentOffset =
-targetIndex * cardHeight;
+(targetIndex * cardHeight) - centerOffset;
 
     spinnerTrack.style.transition =
     "transform 6s cubic-bezier(.12,.89,.16,1)";
