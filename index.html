@@ -672,6 +672,8 @@ function deleteRestaurant(index){
     renderRestaurants();
 }
 
+<script>
+
 function spinWheel(){
 
     const active = restaurants.filter(r => !r.crossed);
@@ -688,34 +690,33 @@ function spinWheel(){
 
     const cardHeight = 139;
 
-    // always continue downward
+    // if too far down, secretly reset FIRST
+    const resetPoint =
+    active.length * cardHeight * 20;
+
+    if(currentOffset > resetPoint){
+
+        currentOffset =
+        active.length * cardHeight * 10;
+
+        spinnerTrack.style.transition = "none";
+
+        spinnerTrack.style.transform =
+        `translateY(-${currentOffset}px)`;
+
+        spinnerTrack.offsetHeight;
+    }
+
+    // now do normal animated spin
     const extraSpins =
-    (Math.floor(Math.random() * 10) + 18) * active.length;
+    (Math.floor(Math.random() * 10) + 18)
+    * active.length;
 
     const moveAmount =
-    (extraSpins + winnerIndex) * cardHeight;
+    (extraSpins + winnerIndex)
+    * cardHeight;
 
     currentOffset += moveAmount;
-
-// loop the wheel forever without empty space
-const resetPoint =
-(active.length * 139 * 20);
-
-if(currentOffset > resetPoint){
-
-    currentOffset =
-    active.length * 139 * 10;
-
-    spinnerTrack.style.transition = "none";
-
-    spinnerTrack.style.transform =
-    `translateY(-${currentOffset}px)`;
-
-    spinnerTrack.offsetHeight;
-
-    spinnerTrack.style.transition =
-    "transform 6s cubic-bezier(.12,.89,.16,1)";
-}
 
     spinnerTrack.style.transition =
     "transform 6s cubic-bezier(.12,.89,.16,1)";
@@ -728,6 +729,7 @@ if(currentOffset > resetPoint){
     `✨ Tonight: ${winner.name} ✨`;
 
 }
+
 
 renderRestaurants();
 
