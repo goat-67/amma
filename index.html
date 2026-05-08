@@ -697,6 +697,26 @@ function spinWheel(){
 
     currentOffset += moveAmount;
 
+// loop the wheel forever without empty space
+const resetPoint =
+(active.length * 139 * 20);
+
+if(currentOffset > resetPoint){
+
+    currentOffset =
+    active.length * 139 * 10;
+
+    spinnerTrack.style.transition = "none";
+
+    spinnerTrack.style.transform =
+    `translateY(-${currentOffset}px)`;
+
+    spinnerTrack.offsetHeight;
+
+    spinnerTrack.style.transition =
+    "transform 6s cubic-bezier(.12,.89,.16,1)";
+}
+
     spinnerTrack.style.transition =
     "transform 6s cubic-bezier(.12,.89,.16,1)";
 
