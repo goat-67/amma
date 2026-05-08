@@ -8,547 +8,1585 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 
-```html
+
 <style>
+/* ========================================================= */
+/* FAMILY DINNER PICKER — GRANDMA HEARTHSTONE STYLE THEME   */
+/* ========================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Nunito:wght@400;700;900&display=swap');
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+/* 001 */
+:root {
+/* 002 */
+    --bg-main: #efe4cf;
+/* 003 */
+    --bg-soft: #f7f0df;
+/* 004 */
+    --bg-panel: #f9f4e8;
+/* 005 */
+    --olive: #597a3d;
+/* 006 */
+    --olive-dark: #365525;
+/* 007 */
+    --gold: #c79543;
+/* 008 */
+    --gold-light: #f0d38a;
+/* 009 */
+    --wood-1: #5a2e13;
+/* 010 */
+    --wood-2: #7a421b;
+/* 011 */
+    --wood-3: #3d1f0d;
+/* 012 */
+    --paper: #efe2c8;
+/* 013 */
+    --paper-dark: #d8c3a1;
+/* 014 */
+    --text-main: #6a4a35;
+/* 015 */
+    --shadow-soft: rgba(0,0,0,0.12);
+/* 016 */
+    --shadow-deep: rgba(0,0,0,0.25);
+/* 017 */
+    --glow: rgba(255,214,112,0.55);
+/* 018 */
+    --radius-xl: 34px;
+/* 019 */
+    --radius-lg: 24px;
+/* 020 */
+    --radius-md: 18px;
+/* 021 */
+    --radius-sm: 12px;
+/* 022 */
+    --transition: 0.28s cubic-bezier(.4,0,.2,1);
+/* 023 */
 }
 
-body{
-    overflow:hidden;
-    height:100vh;
+/* 024 */
+* {
+/* 025 */
+    box-sizing: border-box;
+/* 026 */
+}
 
+/* 027 */
+html {
+/* 028 */
+    scroll-behavior: smooth;
+/* 029 */
+}
+
+/* 030 */
+body {
+/* 031 */
+    margin: 0;
+/* 032 */
+    min-height: 100vh;
+/* 033 */
+    overflow-x: hidden;
+/* 034 */
+    color: var(--text-main);
+/* 035 */
+    font-family: Georgia, serif;
+/* 036 */
     background:
-    radial-gradient(circle at top,#fff8ea 0%,#f6efdf 35%,#eee3cf 100%);
-
-    font-family:'Nunito',sans-serif;
-    color:#5d4636;
-
-    position:relative;
+        radial-gradient(circle at top, rgba(255,255,255,0.75), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(210,180,120,0.18), transparent 30%),
+        linear-gradient(180deg, #f8f2e7 0%, #efe2cd 100%);
+/* 037 */
+    position: relative;
+/* 038 */
 }
 
-/* soft paper grain vibe */
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-
+/* 039 */
+body::before {
+/* 040 */
+    content: "";
+/* 041 */
+    position: fixed;
+/* 042 */
+    inset: 0;
+/* 043 */
+    pointer-events: none;
+/* 044 */
+    opacity: 0.06;
+/* 045 */
     background-image:
-    radial-gradient(rgba(120,90,60,0.035) 1px, transparent 1px);
-
-    background-size:4px 4px;
-
-    opacity:.35;
-    pointer-events:none;
+        repeating-radial-gradient(circle at center, #000 0px, transparent 1px),
+        repeating-linear-gradient(45deg, rgba(0,0,0,0.05) 0px, transparent 2px);
+/* 046 */
+    mix-blend-mode: multiply;
+/* 047 */
 }
 
-/* warm vignette */
-body::after{
-    content:"";
-    position:fixed;
-    inset:0;
+/* 048 */
+.app-shell {
+/* 049 */
+    width: 100%;
+/* 050 */
+    max-width: 1500px;
+/* 051 */
+    margin: 0 auto;
+/* 052 */
+    padding: 18px 26px 100px;
+/* 053 */
+    display: grid;
+/* 054 */
+    grid-template-columns: 310px 1fr 240px;
+/* 055 */
+    gap: 24px;
+/* 056 */
+    align-items: start;
+/* 057 */
+}
 
+/* 058 */
+.left-panel {
+/* 059 */
+    background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.25));
+/* 060 */
+    border: 2px solid rgba(201,176,126,0.35);
+/* 061 */
+    border-radius: var(--radius-xl);
+/* 062 */
+    padding: 18px;
+/* 063 */
     box-shadow:
-    inset 0 0 180px rgba(130,90,40,.12);
-
-    pointer-events:none;
+        inset 0 2px 4px rgba(255,255,255,0.8),
+        0 14px 30px rgba(121,87,44,0.12);
+/* 064 */
+    backdrop-filter: blur(8px);
+/* 065 */
 }
 
-/* ===== MAIN LAYOUT ===== */
-
-.main-layout{
-    height:100vh;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    gap:45px;
-
-    padding:24px 40px 90px;
+/* 066 */
+.left-title {
+/* 067 */
+    font-size: 20px;
+/* 068 */
+    font-weight: 700;
+/* 069 */
+    color: #6c8a58;
+/* 070 */
+    text-align: center;
+/* 071 */
+    margin-bottom: 18px;
+/* 072 */
+    line-height: 1.4;
+/* 073 */
+    letter-spacing: 0.5px;
+/* 074 */
 }
 
-/* ===== LEFT PANEL ===== */
+/* 075 */
+.left-title span {
+/* 076 */
+    color: #b59d6f;
+/* 077 */
+}
 
-.left-panel{
+/* 078 */
+.restaurant-input-wrap {
+/* 079 */
+    display: flex;
+/* 080 */
+    gap: 10px;
+/* 081 */
+    margin-bottom: 18px;
+/* 082 */
+}
 
-    width:320px;
-    height:760px;
+/* 083 */
+.restaurant-input {
+/* 084 */
+    flex: 1;
+/* 085 */
+    height: 52px;
+/* 086 */
+    border-radius: 18px;
+/* 087 */
+    border: 1px solid rgba(170,150,120,0.3);
+/* 088 */
+    background: rgba(255,255,255,0.6);
+/* 089 */
+    padding: 0 18px;
+/* 090 */
+    font-size: 16px;
+/* 091 */
+    color: var(--text-main);
+/* 092 */
+    outline: none;
+/* 093 */
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+/* 094 */
+}
 
+/* 095 */
+.restaurant-input::placeholder {
+/* 096 */
+    color: #a89a88;
+/* 097 */
+}
+
+/* 098 */
+.add-btn {
+/* 099 */
+    width: 82px;
+/* 100 */
+    border: none;
+/* 101 */
+    border-radius: 18px;
+/* 102 */
     background:
-    linear-gradient(to bottom,
-    rgba(255,255,255,.65),
-    rgba(255,255,255,.45));
-
-    border-radius:36px;
-
-    border:2px solid rgba(255,255,255,.55);
-
-    backdrop-filter:blur(8px);
-
+        linear-gradient(180deg, #8ba76f 0%, #5f7d46 100%);
+/* 103 */
+    color: #fff;
+/* 104 */
+    font-size: 18px;
+/* 105 */
+    font-weight: 700;
+/* 106 */
+    cursor: pointer;
+/* 107 */
     box-shadow:
-    0 10px 30px rgba(110,80,40,.12),
-    inset 0 1px 0 rgba(255,255,255,.7);
-
-    padding:28px;
+        inset 0 2px 2px rgba(255,255,255,0.4),
+        0 6px 14px rgba(75,95,50,0.25);
+/* 108 */
+    transition: var(--transition);
+/* 109 */
 }
 
-.panel-title{
-
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:58px;
-
-    line-height:.95;
-
-    text-align:center;
-
-    color:#9ca88d;
-
-    margin-bottom:26px;
+/* 110 */
+.add-btn:hover {
+/* 111 */
+    transform: translateY(-2px);
+/* 112 */
+    filter: brightness(1.03);
+/* 113 */
 }
 
-.add-row{
-    display:flex;
-    gap:14px;
-    margin-bottom:24px;
+/* 114 */
+.restaurant-list {
+/* 115 */
+    display: flex;
+/* 116 */
+    flex-direction: column;
+/* 117 */
+    gap: 14px;
+/* 118 */
 }
 
-.add-row input{
-
-    flex:1;
-
-    border:none;
-
-    background:#f4ede0;
-
-    border-radius:20px;
-
-    padding:18px 18px;
-
-    font-size:18px;
-
-    color:#6f5b49;
-
-    outline:none;
-
+/* 119 */
+.restaurant-card {
+/* 120 */
+    display: flex;
+/* 121 */
+    align-items: center;
+/* 122 */
+    justify-content: space-between;
+/* 123 */
+    padding: 14px 16px;
+/* 124 */
+    border-radius: 22px;
+/* 125 */
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.7), rgba(248,242,228,0.85));
+/* 126 */
+    border: 1px solid rgba(203,184,149,0.4);
+/* 127 */
     box-shadow:
-    inset 0 2px 4px rgba(0,0,0,.05);
+        inset 0 1px 1px rgba(255,255,255,0.8),
+        0 4px 10px rgba(0,0,0,0.06);
+/* 128 */
+    position: relative;
+/* 129 */
+    overflow: hidden;
+/* 130 */
 }
 
-.add-row button{
-
-    border:none;
-
-    width:92px;
-
-    border-radius:20px;
-
+/* 131 */
+.restaurant-card::before {
+/* 132 */
+    content: "";
+/* 133 */
+    position: absolute;
+/* 134 */
+    inset: 0;
+/* 135 */
     background:
-    linear-gradient(to bottom,#98b17d,#7f9c65);
+        linear-gradient(135deg, rgba(255,255,255,0.15), transparent 30%),
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, transparent 2px);
+/* 136 */
+    pointer-events: none;
+/* 137 */
+}
 
-    color:white;
+/* 138 */
+.restaurant-name {
+/* 139 */
+    font-size: 15px;
+/* 140 */
+    font-weight: 700;
+/* 141 */
+    max-width: 120px;
+/* 142 */
+    line-height: 1.2;
+/* 143 */
+}
 
-    font-weight:900;
+/* 144 */
+.restaurant-actions {
+/* 145 */
+    display: flex;
+/* 146 */
+    gap: 8px;
+/* 147 */
+}
 
-    font-size:20px;
+/* 148 */
+.cross-btn {
+/* 149 */
+    border: none;
+/* 150 */
+    background: #87a468;
+/* 151 */
+    color: white;
+/* 152 */
+    border-radius: 14px;
+/* 153 */
+    height: 38px;
+/* 154 */
+    padding: 0 16px;
+/* 155 */
+    font-weight: 700;
+/* 156 */
+    cursor: pointer;
+/* 157 */
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.4);
+/* 158 */
+}
 
-    cursor:pointer;
+/* 159 */
+.delete-btn {
+/* 160 */
+    width: 38px;
+/* 161 */
+    border: none;
+/* 162 */
+    border-radius: 14px;
+/* 163 */
+    background: #f0d7d0;
+/* 164 */
+    color: #9b5b4d;
+/* 165 */
+    font-size: 16px;
+/* 166 */
+    cursor: pointer;
+/* 167 */
+}
 
+/* 168 */
+.center-panel {
+/* 169 */
+    display: flex;
+/* 170 */
+    flex-direction: column;
+/* 171 */
+    align-items: center;
+/* 172 */
+    position: relative;
+/* 173 */
+}
+
+/* 174 */
+.main-title {
+/* 175 */
+    font-size: 86px;
+/* 176 */
+    line-height: 0.9;
+/* 177 */
+    color: #356028;
+/* 178 */
+    text-align: center;
+/* 179 */
+    margin-top: 10px;
+/* 180 */
+    margin-bottom: 8px;
+/* 181 */
+    text-shadow: 0 2px 0 rgba(255,255,255,0.4);
+/* 182 */
+}
+
+/* 183 */
+.subtitle {
+/* 184 */
+    font-size: 18px;
+/* 185 */
+    margin-bottom: 22px;
+/* 186 */
+    color: #7d624e;
+/* 187 */
+    text-align: center;
+/* 188 */
+}
+
+/* 189 */
+.wheel-area {
+/* 190 */
+    position: relative;
+/* 191 */
+    width: 420px;
+/* 192 */
+    height: 690px;
+/* 193 */
+    display: flex;
+/* 194 */
+    flex-direction: column;
+/* 195 */
+    align-items: center;
+/* 196 */
+}
+
+/* 197 */
+.wheel-glow {
+/* 198 */
+    position: absolute;
+/* 199 */
+    width: 700px;
+/* 200 */
+    height: 700px;
+/* 201 */
+    background: radial-gradient(circle, rgba(255,215,115,0.22), transparent 70%);
+/* 202 */
+    top: -80px;
+/* 203 */
+    pointer-events: none;
+/* 204 */
+}
+
+/* 205 */
+.wheel-shell {
+/* 206 */
+    width: 100%;
+/* 207 */
+    height: 560px;
+/* 208 */
+    border-radius: 48px;
+/* 209 */
+    padding: 16px;
+/* 210 */
+    position: relative;
+/* 211 */
+    background:
+        linear-gradient(145deg, #c89444 0%, #6d3916 25%, #3f1f0c 60%, #8d5527 100%);
+/* 212 */
     box-shadow:
-    0 8px 18px rgba(90,120,70,.22),
-    inset 0 1px 0 rgba(255,255,255,.3);
-
-    transition:.18s;
+        inset 0 2px 6px rgba(255,255,255,0.28),
+        inset 0 -12px 20px rgba(0,0,0,0.35),
+        0 28px 50px rgba(84,47,18,0.28),
+        0 0 40px rgba(255,202,96,0.12);
+/* 213 */
 }
 
-.add-row button:hover{
-    transform:translateY(-2px);
+/* 214 */
+.wheel-shell::before {
+/* 215 */
+    content: "";
+/* 216 */
+    position: absolute;
+/* 217 */
+    inset: 12px;
+/* 218 */
+    border-radius: 38px;
+/* 219 */
+    border: 2px solid rgba(255,221,146,0.25);
+/* 220 */
+    pointer-events: none;
+/* 221 */
 }
 
-/* ===== RESTAURANT CARDS ===== */
-
-.restaurant-list{
-    display:flex;
-    flex-direction:column;
-    gap:16px;
+/* 222 */
+.wheel-shell::after {
+/* 223 */
+    content: "";
+/* 224 */
+    position: absolute;
+/* 225 */
+    left: 50%;
+/* 226 */
+    transform: translateX(-50%);
+/* 227 */
+    top: 20px;
+/* 228 */
+    width: 65%;
+/* 229 */
+    height: 18px;
+/* 230 */
+    border-radius: 999px;
+/* 231 */
+    background: rgba(255,255,255,0.16);
+/* 232 */
+    filter: blur(4px);
+/* 233 */
 }
 
-.restaurant-card{
-
+/* 234 */
+.slot-window {
+/* 235 */
+    width: 100%;
+/* 236 */
+    height: 100%;
+/* 237 */
+    overflow: hidden;
+/* 238 */
+    border-radius: 36px;
+/* 239 */
     background:
-    linear-gradient(to bottom,#fffaf0,#f8efdd);
-
-    border-radius:24px;
-
-    padding:18px 18px;
-
-    border:2px solid #eadcc4;
-
+        linear-gradient(180deg, rgba(35,14,4,0.95), rgba(91,42,12,0.95));
+/* 240 */
+    position: relative;
+/* 241 */
     box-shadow:
-    0 5px 16px rgba(120,90,50,.08),
-    inset 0 1px 0 rgba(255,255,255,.75);
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+        inset 0 16px 26px rgba(0,0,0,0.45),
+        inset 0 -12px 20px rgba(255,197,104,0.08);
+/* 242 */
 }
 
-.restaurant-name{
-    font-size:19px;
-    font-weight:800;
-}
-
-.card-buttons{
-    display:flex;
-    gap:10px;
-}
-
-.cross-btn{
-
-    border:none;
-
+/* 243 */
+.slot-window::before {
+/* 244 */
+    content: "";
+/* 245 */
+    position: absolute;
+/* 246 */
+    inset: 0;
+/* 247 */
     background:
-    linear-gradient(to bottom,#98b17d,#88a56f);
-
-    color:white;
-
-    border-radius:18px;
-
-    padding:12px 18px;
-
-    font-weight:800;
-
-    cursor:pointer;
+        linear-gradient(180deg, rgba(255,255,255,0.05), transparent 20%, transparent 80%, rgba(0,0,0,0.25));
+/* 248 */
+    pointer-events: none;
+/* 249 */
+    z-index: 5;
+/* 250 */
 }
 
-.delete-btn{
-
-    width:50px;
-    height:50px;
-
-    border:none;
-
-    border-radius:18px;
-
-    background:#f3ddd6;
-
-    color:#9c6255;
-
-    font-size:20px;
-
-    cursor:pointer;
+/* 251 */
+.slot-reel {
+/* 252 */
+    position: absolute;
+/* 253 */
+    width: 100%;
+/* 254 */
+    top: 0;
+/* 255 */
+    left: 0;
+/* 256 */
+    transition: transform 4.2s cubic-bezier(.08,.72,.18,1);
+/* 257 */
 }
 
-/* ===== CENTER ===== */
-
-.center-wrap{
-    width:760px;
-    text-align:center;
-    position:relative;
-}
-
-/* title */
-
-.hero-title{
-
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:96px;
-
-    line-height:.9;
-
-    color:#2f6529;
-
-    margin-bottom:10px;
-
-    text-shadow:
-    0 2px 0 rgba(255,255,255,.5);
-}
-
-.hero-sub{
-
-    font-size:30px;
-
-    color:#7b6250;
-
-    margin-bottom:34px;
-}
-
-/* ===== WHEEL AREA ===== */
-
-.machine-glow{
-
-    position:absolute;
-
-    left:50%;
-    top:260px;
-
-    transform:translateX(-50%);
-
-    width:520px;
-    height:520px;
-
-    border-radius:50%;
-
+/* 258 */
+.slot-card {
+/* 259 */
+    width: calc(100% - 42px);
+/* 260 */
+    margin: 14px auto;
+/* 261 */
+    height: 122px;
+/* 262 */
+    border-radius: 28px;
+/* 263 */
+    display: flex;
+/* 264 */
+    align-items: center;
+/* 265 */
+    justify-content: center;
+/* 266 */
+    text-align: center;
+/* 267 */
+    padding: 18px;
+/* 268 */
+    position: relative;
+/* 269 */
     background:
-    radial-gradient(circle,
-    rgba(255,230,150,.75) 0%,
-    rgba(255,230,150,.22) 40%,
-    transparent 72%);
-
-    filter:blur(10px);
-
-    z-index:0;
-}
-
-.machine{
-
-    position:relative;
-
-    margin:auto;
-
-    width:430px;
-    height:610px;
-
-    border-radius:52px;
-
-    background:
-    linear-gradient(
-    145deg,
-    #dca85c 0%,
-    #5c2b10 16%,
-    #321306 48%,
-    #6a3215 84%,
-    #d6a156 100%
-    );
-
-    padding:24px;
-
+        linear-gradient(180deg, #f5ebd8 0%, #ead9ba 100%);
+/* 270 */
+    border: 2px solid rgba(160,120,74,0.35);
+/* 271 */
     box-shadow:
-    0 25px 60px rgba(80,40,10,.28),
-    inset 0 2px 2px rgba(255,255,255,.35),
-    inset 0 -3px 8px rgba(0,0,0,.45);
-
-    z-index:2;
+        inset 0 2px 0 rgba(255,255,255,0.65),
+        inset 0 -5px 8px rgba(160,120,74,0.14),
+        0 5px 12px rgba(0,0,0,0.18);
+/* 272 */
 }
 
-/* viewport */
+/* 273 */
+.slot-card::before {
+/* 274 */
+    content: "✦";
+/* 275 */
+    position: absolute;
+/* 276 */
+    left: 18px;
+/* 277 */
+    color: #ccb18a;
+/* 278 */
+    font-size: 32px;
+/* 279 */
+}
 
-.viewport{
+/* 280 */
+.slot-card::after {
+/* 281 */
+    content: "✦";
+/* 282 */
+    position: absolute;
+/* 283 */
+    right: 18px;
+/* 284 */
+    color: #ccb18a;
+/* 285 */
+    font-size: 32px;
+/* 286 */
+}
 
-    height:520px;
+/* 287 */
+.slot-card span {
+/* 288 */
+    font-size: 22px;
+/* 289 */
+    font-weight: 700;
+/* 290 */
+    color: #6a4324;
+/* 291 */
+    line-height: 1.2;
+/* 292 */
+}
 
-    border-radius:34px;
-
-    overflow:hidden;
-
-    background:
-    linear-gradient(to bottom,#3a1809,#5f2b11);
-
-    padding:18px;
-
-    position:relative;
-
+/* 293 */
+.slot-highlight {
+/* 294 */
+    position: absolute;
+/* 295 */
+    left: 18px;
+/* 296 */
+    right: 18px;
+/* 297 */
+    top: 50%;
+/* 298 */
+    transform: translateY(-50%);
+/* 299 */
+    height: 142px;
+/* 300 */
+    border-radius: 30px;
+/* 301 */
+    border: 4px solid #f0c851;
+/* 302 */
     box-shadow:
-    inset 0 6px 18px rgba(0,0,0,.5);
+        0 0 20px rgba(255,211,96,0.55),
+        inset 0 0 16px rgba(255,214,100,0.18);
+/* 303 */
+    z-index: 10;
+/* 304 */
+    pointer-events: none;
+/* 305 */
 }
 
-/* wheel items */
-
-.spinner-track{
-    display:flex;
-    flex-direction:column;
-    gap:16px;
-
-    transition:
-    transform 5s cubic-bezier(.08,.8,.15,1);
+/* 306 */
+.side-arrow {
+/* 307 */
+    position: absolute;
+/* 308 */
+    top: 50%;
+/* 309 */
+    transform: translateY(-50%);
+/* 310 */
+    width: 0;
+/* 311 */
+    height: 0;
+/* 312 */
+    z-index: 20;
+/* 313 */
 }
 
-.spin-card{
+/* 314 */
+.side-arrow.left {
+/* 315 */
+    left: -46px;
+/* 316 */
+    border-top: 30px solid transparent;
+/* 317 */
+    border-bottom: 30px solid transparent;
+/* 318 */
+    border-right: 46px solid #e4b33c;
+/* 319 */
+    filter: drop-shadow(0 0 14px rgba(255,210,100,0.6));
+/* 320 */
+}
 
-    height:118px;
+/* 321 */
+.side-arrow.right {
+/* 322 */
+    right: -46px;
+/* 323 */
+    border-top: 30px solid transparent;
+/* 324 */
+    border-bottom: 30px solid transparent;
+/* 325 */
+    border-left: 46px solid #e4b33c;
+/* 326 */
+    filter: drop-shadow(0 0 14px rgba(255,210,100,0.6));
+/* 327 */
+}
 
-    border-radius:30px;
-
+/* 328 */
+.spin-btn {
+/* 329 */
+    margin-top: 18px;
+/* 330 */
+    width: 320px;
+/* 331 */
+    height: 92px;
+/* 332 */
+    border-radius: 999px;
+/* 333 */
+    border: 4px solid #d7a34d;
+/* 334 */
     background:
-    linear-gradient(to bottom,#fff5df,#f6e7c8);
-
-    border:3px solid #ead0a3;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:36px;
-
-    font-weight:700;
-
-    color:#68472e;
-
-    position:relative;
-
+        linear-gradient(180deg, #497233 0%, #2c4f1c 100%);
+/* 335 */
+    color: #fff8e5;
+/* 336 */
+    font-size: 44px;
+/* 337 */
+    font-weight: 800;
+/* 338 */
+    letter-spacing: 2px;
+/* 339 */
+    cursor: pointer;
+/* 340 */
     box-shadow:
-    0 8px 16px rgba(0,0,0,.12),
-    inset 0 2px 0 rgba(255,255,255,.7);
+        inset 0 3px 4px rgba(255,255,255,0.28),
+        inset 0 -8px 12px rgba(0,0,0,0.25),
+        0 12px 24px rgba(48,75,27,0.28),
+        0 0 22px rgba(255,210,95,0.16);
+/* 341 */
+    transition: var(--transition);
+/* 342 */
 }
 
-/* center selected */
+/* 343 */
+.spin-btn:hover {
+/* 344 */
+    transform: translateY(-3px) scale(1.02);
+/* 345 */
+    box-shadow:
+        inset 0 3px 4px rgba(255,255,255,0.32),
+        0 16px 30px rgba(48,75,27,0.34),
+        0 0 28px rgba(255,210,95,0.2);
+/* 346 */
+}
 
-.spin-card.selected{
+/* 347 */
+.spin-btn:active {
+/* 348 */
+    transform: translateY(1px) scale(0.99);
+/* 349 */
+}
 
+/* 350 */
+.spin-note {
+/* 351 */
+    margin-top: 12px;
+/* 352 */
+    color: #87674e;
+/* 353 */
+    font-size: 18px;
+/* 354 */
+}
+
+/* 355 */
+.right-panel {
+/* 356 */
+    display: flex;
+/* 357 */
+    flex-direction: column;
+/* 358 */
+    align-items: center;
+/* 359 */
+    gap: 24px;
+/* 360 */
+}
+
+/* 361 */
+.quote-sign {
+/* 362 */
+    width: 190px;
+/* 363 */
+    padding: 28px 18px;
+/* 364 */
+    border-radius: 28px;
+/* 365 */
     background:
-    linear-gradient(to bottom,#fff8ea,#f9ebc8);
-
-    border:4px solid #f3cd61;
-
+        linear-gradient(180deg, #f8ead0 0%, #ecd6b4 100%);
+/* 366 */
+    border: 6px solid #bf8649;
+/* 367 */
     box-shadow:
-    0 0 22px rgba(255,215,90,.38),
-    inset 0 2px 0 rgba(255,255,255,.8);
+        inset 0 3px 3px rgba(255,255,255,0.55),
+        0 12px 24px rgba(0,0,0,0.08);
+/* 368 */
+    text-align: center;
+/* 369 */
+    font-size: 28px;
+/* 370 */
+    line-height: 1.35;
+/* 371 */
+    color: #8a5e42;
+/* 372 */
 }
 
-/* arrows */
-
-.arrow{
-
-    position:absolute;
-
-    top:50%;
-
-    transform:translateY(-50%);
-
-    width:0;
-    height:0;
-
-    border-top:30px solid transparent;
-    border-bottom:30px solid transparent;
-
-    z-index:5;
+/* 373 */
+.flower-area {
+/* 374 */
+    width: 100%;
+/* 375 */
+    display: flex;
+/* 376 */
+    justify-content: center;
+/* 377 */
 }
 
-.arrow.left{
-    left:-40px;
-    border-right:42px solid #e3b33d;
-}
-
-.arrow.right{
-    right:-40px;
-    border-left:42px solid #e3b33d;
-}
-
-/* ===== SPIN BUTTON ===== */
-
-.spin-btn{
-
-    margin:26px auto 0;
-
-    width:320px;
-    height:82px;
-
-    border:none;
-
-    border-radius:999px;
-
-    cursor:pointer;
-
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:48px;
-
-    font-weight:700;
-
-    color:#fff8ea;
-
+/* 378 */
+.flower-vase {
+/* 379 */
+    width: 170px;
+/* 380 */
+    height: 260px;
+/* 381 */
+    border-radius: 80px 80px 40px 40px;
+/* 382 */
     background:
-    linear-gradient(to bottom,#41733c,#245328);
-
+        linear-gradient(180deg, #b9c79b 0%, #7c9365 100%);
+/* 383 */
+    position: relative;
+/* 384 */
     box-shadow:
-    0 10px 20px rgba(40,70,30,.24),
-    inset 0 2px 0 rgba(255,255,255,.2);
-
-    transition:.18s;
+        inset 0 2px 2px rgba(255,255,255,0.45),
+        0 18px 26px rgba(0,0,0,0.14);
+/* 385 */
 }
 
-.spin-btn:hover{
-    transform:translateY(-3px);
-}
-
-/* ===== SIDE SIGN ===== */
-
-.side-sign{
-
-    width:240px;
-    height:370px;
-
-    border-radius:36px;
-
+/* 386 */
+.flower-vase::before {
+/* 387 */
+    content: "";
+/* 388 */
+    position: absolute;
+/* 389 */
+    top: -120px;
+/* 390 */
+    left: 50%;
+/* 391 */
+    transform: translateX(-50%);
+/* 392 */
+    width: 220px;
+/* 393 */
+    height: 180px;
+/* 394 */
     background:
-    linear-gradient(to bottom,#f8ebcf,#efddbc);
-
-    border:6px solid #c28a4d;
-
-    box-shadow:
-    0 10px 25px rgba(120,80,40,.12);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    padding:24px;
-
-    text-align:center;
-
-    font-family:'Cormorant Garamond',serif;
-
-    font-size:58px;
-
-    line-height:1.1;
-
-    color:#8a6140;
+        radial-gradient(circle, #f5a8bb 0%, #f5a8bb 18%, transparent 20%),
+        radial-gradient(circle, #ffd7de 0%, #ffd7de 18%, transparent 20%),
+        radial-gradient(circle, #f0bfd2 0%, #f0bfd2 18%, transparent 20%);
+/* 395 */
+    background-size: 80px 80px;
+/* 396 */
+    background-position: 0 0, 60px 20px, 120px 0;
+/* 397 */
+    background-repeat: no-repeat;
+/* 398 */
+    opacity: 0.95;
+/* 399 */
 }
 
-/* ===== BOTTOM BAR ===== */
-
-.bottom-bar{
-
-    position:fixed;
-
-    bottom:14px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    width:95%;
-
+/* 400 */
+.footer-bar {
+/* 401 */
+    position: fixed;
+/* 402 */
+    left: 28px;
+/* 403 */
+    right: 28px;
+/* 404 */
+    bottom: 18px;
+/* 405 */
+    height: 72px;
+/* 406 */
+    border-radius: 999px;
+/* 407 */
     background:
-    linear-gradient(to bottom,#f2e6c8,#e9dbbb);
-
-    border-radius:30px;
-
-    border:2px solid #d7c7a5;
-
-    padding:18px 30px;
-
-    display:flex;
-    justify-content:space-around;
-
-    color:#7b624e;
-
-    font-weight:700;
-
+        linear-gradient(180deg, rgba(240,227,195,0.95), rgba(228,212,177,0.95));
+/* 408 */
+    border: 2px solid rgba(190,166,116,0.45);
+/* 409 */
+    display: flex;
+/* 410 */
+    align-items: center;
+/* 411 */
+    justify-content: space-around;
+/* 412 */
     box-shadow:
-    0 6px 20px rgba(80,60,30,.08);
+        inset 0 2px 2px rgba(255,255,255,0.65),
+        0 10px 20px rgba(0,0,0,0.08);
+/* 413 */
+    backdrop-filter: blur(10px);
+/* 414 */
+    z-index: 50;
+/* 415 */
 }
 
+/* 416 */
+.footer-tip {
+/* 417 */
+    font-size: 16px;
+/* 418 */
+    font-weight: 700;
+/* 419 */
+    color: #7a5c44;
+/* 420 */
+    display: flex;
+/* 421 */
+    align-items: center;
+/* 422 */
+    gap: 10px;
+/* 423 */
+}
+
+/* 424 */
+.footer-divider {
+/* 425 */
+    width: 1px;
+/* 426 */
+    height: 34px;
+/* 427 */
+    background: rgba(120,95,60,0.18);
+/* 428 */
+}
+
+/* 429 */
+.corner-leaf {
+/* 430 */
+    position: absolute;
+/* 431 */
+    width: 80px;
+/* 432 */
+    height: 80px;
+/* 433 */
+    opacity: 0.18;
+/* 434 */
+    background:
+        radial-gradient(circle at 30% 30%, #8da86e 0%, transparent 20%),
+        radial-gradient(circle at 60% 70%, #6e8d5a 0%, transparent 20%);
+/* 435 */
+}
+
+/* 436 */
+.corner-leaf.one {
+/* 437 */
+    top: 0;
+/* 438 */
+    left: 0;
+/* 439 */
+}
+
+/* 440 */
+.corner-leaf.two {
+/* 441 */
+    bottom: 120px;
+/* 442 */
+    right: 40px;
+/* 443 */
+}
+
+/* 444 */
+.decor-glow {
+/* 445 */
+    position: absolute;
+/* 446 */
+    width: 260px;
+/* 447 */
+    height: 260px;
+/* 448 */
+    border-radius: 50%;
+/* 449 */
+    background: radial-gradient(circle, rgba(255,214,114,0.16), transparent 70%);
+/* 450 */
+    filter: blur(12px);
+/* 451 */
+    pointer-events: none;
+/* 452 */
+}
+
+/* 453 */
+.decor-glow.left {
+/* 454 */
+    left: 20%;
+/* 455 */
+    top: 20%;
+/* 456 */
+}
+
+/* 457 */
+.decor-glow.right {
+/* 458 */
+    right: 10%;
+/* 459 */
+    top: 30%;
+/* 460 */
+}
+
+/* 461 */
+.slot-card.active {
+/* 462 */
+    background:
+        linear-gradient(180deg, #fff5d9 0%, #f2dfae 100%);
+/* 463 */
+    border-color: #f0cb5c;
+/* 464 */
+    box-shadow:
+        inset 0 2px 0 rgba(255,255,255,0.8),
+        0 0 24px rgba(255,215,100,0.42);
+/* 465 */
+}
+
+/* 466 */
+.slot-card.active span {
+/* 467 */
+    color: #4d6627;
+/* 468 */
+}
+
+/* 469 */
+.restaurant-card.crossed {
+/* 470 */
+    opacity: 0.5;
+/* 471 */
+    filter: grayscale(0.4);
+/* 472 */
+}
+
+/* 473 */
+.restaurant-card.crossed .restaurant-name {
+/* 474 */
+    text-decoration: line-through;
+/* 475 */
+}
+
+/* 476 */
+.spin-btn.disabled {
+/* 477 */
+    opacity: 0.6;
+/* 478 */
+    pointer-events: none;
+/* 479 */
+}
+
+/* 480 */
+.left-panel::after {
+/* 481 */
+    content: "";
+/* 482 */
+    position: absolute;
+/* 483 */
+    width: 120px;
+/* 484 */
+    height: 120px;
+/* 485 */
+    border-radius: 50%;
+/* 486 */
+    background: radial-gradient(circle, rgba(255,255,255,0.18), transparent 70%);
+/* 487 */
+    top: -20px;
+/* 488 */
+    right: -20px;
+/* 489 */
+    pointer-events: none;
+/* 490 */
+}
+
+/* 491 */
+.main-title strong {
+/* 492 */
+    color: #56793e;
+/* 493 */
+}
+
+/* 494 */
+.paper-divider {
+/* 495 */
+    width: 100%;
+/* 496 */
+    height: 1px;
+/* 497 */
+    background: linear-gradient(90deg, transparent, rgba(130,100,60,0.22), transparent);
+/* 498 */
+    margin: 14px 0;
+/* 499 */
+}
+
+/* 500 */
+.restaurant-list::-webkit-scrollbar {
+/* 501 */
+    width: 10px;
+/* 502 */
+}
+
+/* 503 */
+.restaurant-list::-webkit-scrollbar-thumb {
+/* 504 */
+    background: rgba(120,90,50,0.2);
+/* 505 */
+    border-radius: 999px;
+/* 506 */
+}
+
+/* 507 */
+.restaurant-list::-webkit-scrollbar-track {
+/* 508 */
+    background: transparent;
+/* 509 */
+}
+
+/* 510 */
+.soft-vignette {
+/* 511 */
+    position: fixed;
+/* 512 */
+    inset: 0;
+/* 513 */
+    pointer-events: none;
+/* 514 */
+    box-shadow: inset 0 0 180px rgba(120,90,50,0.12);
+/* 515 */
+}
+
+/* 516 */
+.table-corner {
+/* 517 */
+    position: absolute;
+/* 518 */
+    width: 230px;
+/* 519 */
+    height: 160px;
+/* 520 */
+    bottom: 90px;
+/* 521 */
+    right: -40px;
+/* 522 */
+    border-radius: 40px 0 0 0;
+/* 523 */
+    background:
+        linear-gradient(145deg, #d0ab72, #8c6036);
+/* 524 */
+    transform: rotate(-2deg);
+/* 525 */
+    opacity: 0.85;
+/* 526 */
+}
+
+/* 527 */
+.table-corner::before {
+/* 528 */
+    content: "";
+/* 529 */
+    position: absolute;
+/* 530 */
+    inset: 10px;
+/* 531 */
+    border-radius: 30px 0 0 0;
+/* 532 */
+    border: 2px solid rgba(255,255,255,0.18);
+/* 533 */
+}
+
+/* 534 */
+.lace-cloth {
+/* 535 */
+    position: absolute;
+/* 536 */
+    width: 160px;
+/* 537 */
+    height: 60px;
+/* 538 */
+    right: 10px;
+/* 539 */
+    bottom: 90px;
+/* 540 */
+    background:
+        repeating-radial-gradient(circle, rgba(255,255,255,0.4) 0px, transparent 4px);
+/* 541 */
+    opacity: 0.35;
+/* 542 */
+}
+
+/* 543 */
+.wheel-shell .shine {
+/* 544 */
+    position: absolute;
+/* 545 */
+    left: 20px;
+/* 546 */
+    top: 16px;
+/* 547 */
+    width: 100px;
+/* 548 */
+    height: 20px;
+/* 549 */
+    border-radius: 999px;
+/* 550 */
+    background: rgba(255,255,255,0.16);
+/* 551 */
+    filter: blur(6px);
+/* 552 */
+}
+
+/* 553 */
+.slot-card.small-text span {
+/* 554 */
+    font-size: 18px;
+/* 555 */
+}
+
+/* 556 */
+.slot-card.tiny-text span {
+/* 557 */
+    font-size: 15px;
+/* 558 */
+}
+
+/* 559 */
+.add-btn::before {
+/* 560 */
+    content: "";
+/* 561 */
+    position: absolute;
+/* 562 */
+    inset: 0;
+/* 563 */
+    border-radius: inherit;
+/* 564 */
+    background: linear-gradient(180deg, rgba(255,255,255,0.15), transparent 50%);
+/* 565 */
+    pointer-events: none;
+/* 566 */
+}
+
+/* 567 */
+.add-btn {
+/* 568 */
+    position: relative;
+/* 569 */
+    overflow: hidden;
+/* 570 */
+}
+
+/* 571 */
+.spin-btn::before {
+/* 572 */
+    content: "❦";
+/* 573 */
+    position: absolute;
+/* 574 */
+    left: 32px;
+/* 575 */
+    top: 50%;
+/* 576 */
+    transform: translateY(-50%);
+/* 577 */
+    font-size: 32px;
+/* 578 */
+    opacity: 0.65;
+/* 579 */
+}
+
+/* 580 */
+.spin-btn::after {
+/* 581 */
+    content: "❦";
+/* 582 */
+    position: absolute;
+/* 583 */
+    right: 32px;
+/* 584 */
+    top: 50%;
+/* 585 */
+    transform: translateY(-50%) scaleX(-1);
+/* 586 */
+    font-size: 32px;
+/* 587 */
+    opacity: 0.65;
+/* 588 */
+}
+
+/* 589 */
+@media (max-width: 1350px) {
+/* 590 */
+    .app-shell {
+/* 591 */
+        grid-template-columns: 280px 1fr;
+/* 592 */
+    }
+
+/* 593 */
+    .right-panel {
+/* 594 */
+        display: none;
+/* 595 */
+    }
+/* 596 */
+}
+
+/* 597 */
+@media (max-width: 980px) {
+/* 598 */
+    .app-shell {
+/* 599 */
+        grid-template-columns: 1fr;
+/* 600 */
+    }
+
+/* 601 */
+    .left-panel {
+/* 602 */
+        order: 2;
+/* 603 */
+    }
+
+/* 604 */
+    .center-panel {
+/* 605 */
+        order: 1;
+/* 606 */
+    }
+
+/* 607 */
+    .main-title {
+/* 608 */
+        font-size: 62px;
+/* 609 */
+    }
+
+/* 610 */
+    .wheel-area {
+/* 611 */
+        width: 360px;
+/* 612 */
+        height: 620px;
+/* 613 */
+    }
+/* 614 */
+}
+
+/* 615 */
+@media (max-width: 640px) {
+/* 616 */
+    body {
+/* 617 */
+        padding-bottom: 120px;
+/* 618 */
+    }
+
+/* 619 */
+    .main-title {
+/* 620 */
+        font-size: 48px;
+/* 621 */
+    }
+
+/* 622 */
+    .subtitle {
+/* 623 */
+        font-size: 16px;
+/* 624 */
+    }
+
+/* 625 */
+    .wheel-area {
+/* 626 */
+        width: 300px;
+/* 627 */
+        height: 560px;
+/* 628 */
+    }
+
+/* 629 */
+    .wheel-shell {
+/* 630 */
+        height: 450px;
+/* 631 */
+    }
+
+/* 632 */
+    .slot-card {
+/* 633 */
+        height: 104px;
+/* 634 */
+    }
+
+/* 635 */
+    .spin-btn {
+/* 636 */
+        width: 250px;
+/* 637 */
+        height: 80px;
+/* 638 */
+        font-size: 36px;
+/* 639 */
+    }
+
+/* 640 */
+    .footer-bar {
+/* 641 */
+        height: auto;
+/* 642 */
+        padding: 18px;
+/* 643 */
+        flex-direction: column;
+/* 644 */
+        gap: 10px;
+/* 645 */
+        border-radius: 28px;
+/* 646 */
+    }
+
+/* 647 */
+    .footer-divider {
+/* 648 */
+        display: none;
+/* 649 */
+    }
+/* 650 */
+}
+
+/* 651 */
+.fade-in {
+/* 652 */
+    animation: fadeIn 0.6s ease;
+/* 653 */
+}
+
+/* 654 */
+@keyframes fadeIn {
+/* 655 */
+    from {
+/* 656 */
+        opacity: 0;
+/* 657 */
+        transform: translateY(10px);
+/* 658 */
+    }
+
+/* 659 */
+    to {
+/* 660 */
+        opacity: 1;
+/* 661 */
+        transform: translateY(0);
+/* 662 */
+    }
+/* 663 */
+}
+
+/* 664 */
+@keyframes warmPulse {
+/* 665 */
+    0% {
+/* 666 */
+        filter: drop-shadow(0 0 8px rgba(255,208,95,0.25));
+/* 667 */
+    }
+
+/* 668 */
+    50% {
+/* 669 */
+        filter: drop-shadow(0 0 18px rgba(255,208,95,0.45));
+/* 670 */
+    }
+
+/* 671 */
+    100% {
+/* 672 */
+        filter: drop-shadow(0 0 8px rgba(255,208,95,0.25));
+/* 673 */
+    }
+/* 674 */
+}
+
+/* 675 */
+.side-arrow {
+/* 676 */
+    animation: warmPulse 2.2s infinite ease-in-out;
+/* 677 */
+}
+
+/* 678 */
+.glass-soft {
+/* 679 */
+    backdrop-filter: blur(12px);
+/* 680 */
+}
+
+/* 681 */
+.paper-noise {
+/* 682 */
+    position: relative;
+/* 683 */
+}
+
+/* 684 */
+.paper-noise::after {
+/* 685 */
+    content: "";
+/* 686 */
+    position: absolute;
+/* 687 */
+    inset: 0;
+/* 688 */
+    background-image:
+        repeating-radial-gradient(circle at center, rgba(0,0,0,0.02) 0px, transparent 1px);
+/* 689 */
+    opacity: 0.4;
+/* 690 */
+    pointer-events: none;
+/* 691 */
+}
+
+/* 692 */
+.hidden {
+/* 693 */
+    display: none !important;
+/* 694 */
+}
+
+/* 695 */
+.centered {
+/* 696 */
+    display: flex;
+/* 697 */
+    align-items: center;
+/* 698 */
+    justify-content: center;
+/* 699 */
+}
+
+/* 700 */
+.end-style-tag-placeholder {
+/* 701 */
+    opacity: 1;
+/* 702 */
+}
 </style>
-```
+
+
 
 </head>
 <body>
