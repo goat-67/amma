@@ -411,9 +411,12 @@ body{
 }
 
 .sign{
+    position:relative;
+
     background:#f6e4c9;
     border:5px solid #bc8752;
     border-radius:24px;
+
     padding:35px;
     width:220px;
 
@@ -427,11 +430,62 @@ body{
 
     box-shadow:
     0 10px 25px rgba(0,0,0,0.1);
+
+    transform:rotate(-2deg);
+}
+
+/* hanging ropes */
+
+.sign::before,
+.sign::after{
+    content:"";
+
+    position:absolute;
+    top:-55px;
+
+    width:4px;
+    height:55px;
+
+    background:#9b6b43;
+
+    border-radius:999px;
+}
+
+.sign::before{
+    left:40px;
+}
+
+.sign::after{
+    right:40px;
 }
 
 .flowers{
-    font-size:180px;
-    opacity:0.7;
+
+    width:180px;
+    height:180px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(circle at top,
+    #ffd7e2 0%,
+    #f6a9be 60%,
+    #ea88a7 100%);
+
+    color:#fff4f7;
+
+    font-size:120px;
+
+    box-shadow:
+    inset 0 10px 20px rgba(255,255,255,0.35),
+    inset 0 -12px 25px rgba(0,0,0,0.08),
+    0 10px 30px rgba(0,0,0,0.12);
+
+    transform:rotate(-8deg);
 }
 
 /* MOBILE */
@@ -540,7 +594,7 @@ body{
         </div>
 
         <div class="flowers">
-            🌸
+              ✿
         </div>
 
     </div>
