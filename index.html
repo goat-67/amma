@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Family Dinner Picker</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
 
@@ -17,305 +17,430 @@
 }
 
 body{
+    overflow:hidden;
     background:
-    radial-gradient(circle at top,#fff8ea 0%,#f6eddc 40%,#efe3cd 100%);
-    min-height:100vh;
-    overflow-x:hidden;
+    radial-gradient(circle at center,
+    #fff8ea 0%,
+    #f7ecd8 45%,
+    #f0e1c6 100%);
+
     font-family:'Nunito',sans-serif;
-    color:#5a4635;
+    color:#5d4632;
+    height:100vh;
 }
 
-/* BACKGROUND DECOR */
+/* ====== AMBIENT LIGHT ====== */
 
-.bg-glow{
+body::before{
+    content:"";
     position:fixed;
     inset:0;
     pointer-events:none;
+
     background:
     radial-gradient(circle at center,
-    rgba(255,221,120,0.18) 0%,
-    transparent 35%);
+    rgba(255,220,120,0.25) 0%,
+    rgba(255,220,120,0.08) 20%,
+    transparent 55%);
 }
 
-/* MAIN LAYOUT */
+/* ====== PAGE ====== */
 
 .page{
-    width:100%;
-    min-height:100vh;
+    height:100vh;
     display:grid;
-    grid-template-columns:340px 1fr 260px;
+    grid-template-columns:360px 1fr 270px;
     gap:40px;
-    padding:30px;
+    padding:20px 30px 95px;
 }
 
-/* LEFT PANEL */
+/* ================= LEFT PANEL ================= */
 
-.left-panel{
-    background:#fff8ec;
-    border-radius:32px;
-    padding:25px;
-    box-shadow:
-    0 15px 40px rgba(0,0,0,0.08),
-    inset 0 0 0 2px #ebddc4;
+.sidebar{
+
+    background:
+    linear-gradient(to bottom,
+    rgba(255,255,255,0.72),
+    rgba(255,248,236,0.96));
+
+    border-radius:34px;
+
+    padding:24px;
+
     position:relative;
+
+    backdrop-filter:blur(8px);
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.08),
+    inset 0 0 0 2px #ead9b9,
+    inset 0 4px 8px rgba(255,255,255,0.9);
 }
 
-.left-panel::before{
+.sidebar::before{
     content:"";
     position:absolute;
     inset:0;
-    border-radius:32px;
+    border-radius:34px;
+
     background:
     linear-gradient(to bottom,
-    rgba(255,255,255,0.7),
-    transparent 30%);
+    rgba(255,255,255,0.8),
+    transparent 22%);
+
     pointer-events:none;
 }
 
-.panel-title{
+.sidebar-title{
     font-family:'Cormorant Garamond',serif;
-    font-size:46px;
-    color:#49693c;
+    font-size:54px;
+    line-height:0.95;
+    color:#567147;
     text-align:center;
     font-weight:700;
-    margin-bottom:25px;
+    margin-top:8px;
+    margin-bottom:28px;
 }
 
-.add-row{
+/* INPUT */
+
+.add-box{
     display:flex;
     gap:12px;
-    margin-bottom:25px;
+    margin-bottom:24px;
 }
 
-.add-row input{
+.add-box input{
     flex:1;
     border:none;
-    border-radius:18px;
-    padding:18px;
-    background:#f2e6d3;
-    font-size:17px;
     outline:none;
-    color:#5a4635;
-}
 
-.add-row button{
-    border:none;
-    background:
-    linear-gradient(to bottom,#8ead73,#6d8f58);
-    color:white;
-    padding:0 24px;
     border-radius:18px;
+
+    padding:18px;
+
     font-size:18px;
-    font-weight:900;
-    cursor:pointer;
+
+    background:
+    linear-gradient(to bottom,
+    #fffdf7,
+    #f2e6d4);
+
+    color:#654c36;
+
     box-shadow:
-    inset 0 2px 0 rgba(255,255,255,0.3),
-    0 6px 12px rgba(0,0,0,0.12);
+    inset 0 2px 4px rgba(255,255,255,0.9),
+    inset 0 -3px 5px rgba(0,0,0,0.05);
 }
 
-/* RESTAURANT ITEMS */
+.add-box button{
 
-.restaurant-item{
-    background:#fffdf7;
-    border-radius:22px;
+    border:none;
+
+    width:112px;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(to bottom,
+    #88a96e 0%,
+    #5f834d 100%);
+
+    color:white;
+
+    font-size:20px;
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+    inset 0 3px 0 rgba(255,255,255,0.3),
+    0 6px 16px rgba(0,0,0,0.18);
+}
+
+/* RESTAURANT CARDS */
+
+.restaurant-card{
+
+    background:
+    linear-gradient(to bottom,
+    #fffefb 0%,
+    #f8efdf 100%);
+
+    border-radius:24px;
+
     padding:18px;
-    margin-bottom:14px;
+
+    margin-bottom:15px;
+
     display:flex;
     justify-content:space-between;
     align-items:center;
+
+    position:relative;
+
     box-shadow:
-    0 5px 14px rgba(0,0,0,0.06),
-    inset 0 0 0 2px #eee0c7;
+    0 6px 14px rgba(0,0,0,0.05),
+    inset 0 0 0 2px #ead9b7,
+    inset 0 3px 5px rgba(255,255,255,0.85);
 }
 
 .restaurant-name{
-    font-size:22px;
-    font-weight:800;
+    font-size:20px;
+    font-weight:900;
+    color:#5d4632;
     max-width:150px;
     overflow-wrap:break-word;
 }
 
-.item-buttons{
+.card-buttons{
     display:flex;
     gap:8px;
 }
 
-.item-buttons button{
+.cross-btn,
+.delete-btn{
     border:none;
-    border-radius:14px;
-    padding:10px 14px;
     cursor:pointer;
-    font-weight:800;
-    font-size:14px;
+    border-radius:14px;
+    font-weight:900;
 }
 
 .cross-btn{
-    background:#7d9d63;
+    background:
+    linear-gradient(to bottom,
+    #8caf71,
+    #6f9157);
+
     color:white;
+    padding:12px 15px;
 }
 
 .delete-btn{
-    background:#f5d9d0;
-    color:#9b5f51;
+    width:45px;
+    background:
+    linear-gradient(to bottom,
+    #ffe5dd,
+    #f2cfc6);
+
+    color:#a16b5d;
 }
 
-/* CENTER */
+/* ================= CENTER ================= */
 
 .center{
     text-align:center;
     position:relative;
 }
 
-.title{
+/* TITLE */
+
+.hero-title{
     font-family:'Cormorant Garamond',serif;
+    color:#315b2c;
+
     font-size:92px;
-    line-height:0.95;
-    color:#355a2d;
+    line-height:0.88;
+
     font-weight:700;
-    margin-top:10px;
+
+    text-shadow:
+    0 2px 0 rgba(255,255,255,0.6);
 }
 
-.subtitle{
-    font-size:34px;
-    margin-top:15px;
-    color:#6b5647;
+.hero-subtitle{
+    margin-top:16px;
+
+    font-size:33px;
+
+    color:#705845;
+
+    line-height:1.15;
 }
 
-/* MACHINE */
+/* ================= MACHINE ================= */
 
 .machine-wrap{
-    margin:auto;
-    margin-top:35px;
     width:470px;
+    margin:18px auto 0;
     position:relative;
 }
 
-/* GOLD GLOW */
+/* MASSIVE GOLD GLOW */
 
 .machine-wrap::before{
     content:"";
+
     position:absolute;
+
     left:50%;
     top:50%;
+
     transform:translate(-50%,-50%);
-    width:760px;
-    height:760px;
+
+    width:850px;
+    height:850px;
+
     background:
     radial-gradient(circle,
-    rgba(255,211,92,0.35) 0%,
-    rgba(255,211,92,0.12) 25%,
-    transparent 60%);
+    rgba(255,220,100,0.35) 0%,
+    rgba(255,220,100,0.08) 35%,
+    transparent 65%);
+
     pointer-events:none;
 }
 
-/* OUTER FRAME */
+/* GOLD FRAME */
 
 .machine-frame{
+
     position:relative;
+
     padding:18px;
 
     border-radius:70px;
 
     background:
-    linear-gradient(to bottom,
-    #d7a14d 0%,
-    #7a4d1f 20%,
-    #4d2d14 50%,
-    #9f6a2b 80%,
-    #d8a14d 100%);
+    linear-gradient(145deg,
+    #f2c770 0%,
+    #8d5720 16%,
+    #4d2811 38%,
+    #7a481a 60%,
+    #e3b25c 100%);
 
     box-shadow:
-    inset 0 0 20px rgba(255,255,255,0.3),
-    inset 0 -10px 30px rgba(0,0,0,0.5),
-    0 25px 50px rgba(0,0,0,0.25);
+    inset 0 0 20px rgba(255,255,255,0.35),
+    inset 0 -15px 30px rgba(0,0,0,0.45),
+    0 18px 45px rgba(0,0,0,0.22),
+    0 0 60px rgba(255,200,90,0.25);
 }
 
 /* INNER MACHINE */
 
 .machine{
-    height:760px;
+
+    height:545px;
+
     overflow:hidden;
-    border-radius:58px;
+
+    border-radius:56px;
+
     position:relative;
 
     background:
     linear-gradient(to bottom,
-    #6a4423 0%,
-    #412310 100%);
+    #603517 0%,
+    #381b0d 100%);
 
     box-shadow:
-    inset 0 0 40px rgba(0,0,0,0.8);
+    inset 0 0 40px rgba(0,0,0,0.7);
+}
+
+/* DARK EDGE SHADING */
+
+.machine::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+
+    background:
+    radial-gradient(circle at center,
+    transparent 40%,
+    rgba(0,0,0,0.32) 100%);
 }
 
 /* TRACK */
 
-#spinnerTrack{
-    transition:transform 6s cubic-bezier(.12,.89,.16,1);
-    padding:40px 20px;
+#track{
+    padding:20px;
+    transition:transform 5.8s cubic-bezier(.12,.89,.16,1);
 }
 
 /* CARDS */
 
-.card{
-    height:125px;
+.spin-card{
 
-    margin-bottom:14px;
+    height:132px;
+
+    margin-bottom:13px;
 
     border-radius:28px;
 
-    background:
-    linear-gradient(to bottom,
-    #fff7e6 0%,
-    #f0dcc0 100%);
+    position:relative;
+
+    overflow:hidden;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
+    background:
+    linear-gradient(to bottom,
+    #fff8ea 0%,
+    #ecd7b7 100%);
+
+    box-shadow:
+    inset 0 0 0 3px #efd9b1,
+    inset 0 5px 8px rgba(255,255,255,0.9),
+    inset 0 -8px 10px rgba(0,0,0,0.05),
+    0 8px 18px rgba(0,0,0,0.14);
+
     font-family:'Cormorant Garamond',serif;
-    font-size:48px;
+
+    font-size:34px;
+
     font-weight:700;
 
-    color:#5a3d24;
-
-    box-shadow:
-    inset 0 0 0 3px #ecd8b3,
-    0 10px 20px rgba(0,0,0,0.18);
-
-    position:relative;
+    color:#5f3d21;
 }
 
-.card::before{
+/* ORNAMENTS */
+
+.spin-card::before,
+.spin-card::after{
     content:"✦";
-    position:absolute;
-    left:18px;
-    opacity:0.35;
-}
 
-.card::after{
-    content:"✦";
     position:absolute;
-    right:18px;
-    opacity:0.35;
-}
 
-/* WINNER CENTER */
-
-.center-highlight{
-    position:absolute;
-    left:20px;
-    right:20px;
     top:50%;
+
     transform:translateY(-50%);
-    height:125px;
 
-    border-radius:28px;
+    font-size:42px;
 
-    border:4px solid #ffdb6c;
+    opacity:0.25;
+}
+
+.spin-card::before{
+    left:22px;
+}
+
+.spin-card::after{
+    right:22px;
+}
+
+/* WINNER AREA */
+
+.winner-zone{
+    position:absolute;
+
+    left:18px;
+    right:18px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    height:132px;
+
+    border-radius:30px;
+
+    border:4px solid #ffd95b;
 
     box-shadow:
-    0 0 25px rgba(255,220,110,0.8),
-    inset 0 0 20px rgba(255,240,180,0.5);
+    0 0 20px rgba(255,220,100,0.9),
+    inset 0 0 18px rgba(255,240,180,0.5);
 
     pointer-events:none;
 }
@@ -326,141 +451,212 @@ body{
     position:absolute;
     top:50%;
     transform:translateY(-50%);
-    z-index:10;
+    z-index:20;
+}
+
+.left-arrow{
+    left:-42px;
+}
+
+.right-arrow{
+    right:-42px;
+}
+
+/* GOLD GEM ARROWS */
+
+.arrow::before{
+
+    content:"";
+
+    display:block;
+
     width:0;
     height:0;
 }
 
-.left-arrow{
-    left:-34px;
+.left-arrow::before{
+
     border-top:28px solid transparent;
     border-bottom:28px solid transparent;
-    border-right:40px solid #d9a638;
+    border-right:42px solid #e0b043;
+
+    filter:
+    drop-shadow(0 0 10px rgba(255,220,100,0.8));
 }
 
-.right-arrow{
-    right:-34px;
+.right-arrow::before{
+
     border-top:28px solid transparent;
     border-bottom:28px solid transparent;
-    border-left:40px solid #d9a638;
+    border-left:42px solid #e0b043;
+
+    filter:
+    drop-shadow(0 0 10px rgba(255,220,100,0.8));
 }
 
 /* SPIN BUTTON */
 
 .spin-btn{
-    margin-top:30px;
+
+    margin-top:22px;
 
     border:none;
 
     border-radius:999px;
 
-    padding:26px 110px;
+    padding:22px 100px;
+
+    cursor:pointer;
+
+    position:relative;
 
     background:
     linear-gradient(to bottom,
-    #4d7d3c 0%,
-    #2d5c2a 100%);
+    #4d7f3d 0%,
+    #2e5828 100%);
 
     color:white;
 
     font-family:'Cormorant Garamond',serif;
-    font-size:64px;
+
+    font-size:58px;
+
     font-weight:700;
 
-    cursor:pointer;
-
     box-shadow:
-    inset 0 4px 0 rgba(255,255,255,0.3),
-    0 12px 30px rgba(0,0,0,0.22);
-
-    transition:0.2s;
+    inset 0 3px 0 rgba(255,255,255,0.3),
+    inset 0 -5px 8px rgba(0,0,0,0.2),
+    0 12px 28px rgba(0,0,0,0.25);
 }
 
 .spin-btn:hover{
-    transform:translateY(-3px) scale(1.02);
+    transform:translateY(-2px) scale(1.02);
 }
+
+.spin-btn::before{
+    content:"❦";
+    position:absolute;
+    left:30px;
+    top:50%;
+    transform:translateY(-50%);
+    opacity:0.8;
+}
+
+.spin-btn::after{
+    content:"❦";
+    position:absolute;
+    right:30px;
+    top:50%;
+    transform:translateY(-50%);
+    opacity:0.8;
+}
+
+/* RESULT */
 
 #winnerText{
-    margin-top:24px;
-    font-size:42px;
+    margin-top:18px;
+    font-size:34px;
     font-weight:900;
-    color:#49693c;
+    color:#4f713f;
 }
 
-/* RIGHT SIDE */
+/* ================= RIGHT SIDE ================= */
 
-.right-panel{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-start;
-    gap:40px;
+.right-side{
+    position:relative;
 }
+
+/* HANGING SIGN */
 
 .sign{
-    background:#f6e4c9;
-    border:5px solid #bc8752;
-    border-radius:24px;
-    padding:35px;
+
     width:220px;
+
+    margin:auto;
+
+    background:
+    linear-gradient(to bottom,
+    #f6e7cb,
+    #ecd9b8);
+
+    border-radius:28px;
+
+    border:6px solid #c18a4f;
+
+    padding:42px 22px;
 
     text-align:center;
 
     font-family:'Cormorant Garamond',serif;
-    font-size:46px;
-    line-height:1.1;
 
-    color:#7c5436;
+    font-size:34px;
+
+    color:#7a5234;
+
+    line-height:1.08;
 
     box-shadow:
-    0 10px 25px rgba(0,0,0,0.1);
+    0 10px 20px rgba(0,0,0,0.12),
+    inset 0 3px 6px rgba(255,255,255,0.7);
 }
+
+/* FLOWERS */
 
 .flowers{
-    font-size:180px;
-    opacity:0.7;
+    position:absolute;
+    right:20px;
+    bottom:0;
+    font-size:170px;
+    opacity:0.85;
 }
 
-/* FOOTER */
+/* ================= FOOTER ================= */
 
 .footer{
+
     position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
 
-    background:rgba(241,231,203,0.96);
+    left:30px;
+    right:30px;
+    bottom:16px;
 
-    backdrop-filter:blur(8px);
+    background:
+    rgba(239,229,197,0.92);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:26px;
 
     display:flex;
     justify-content:space-around;
 
     padding:18px;
 
-    border-top:2px solid #e0d0ad;
+    box-shadow:
+    0 8px 20px rgba(0,0,0,0.08),
+    inset 0 0 0 2px #e0cfaa;
+}
 
-    font-weight:700;
+.footer-item{
+    font-weight:800;
+    color:#715948;
 }
 
 /* MOBILE */
 
-@media(max-width:1200px){
+@media(max-width:1400px){
+
+    body{
+        overflow:auto;
+    }
 
     .page{
         grid-template-columns:1fr;
+        height:auto;
     }
 
-    .right-panel{
+    .right-side{
         display:none;
-    }
-
-    .left-panel{
-        order:2;
-    }
-
-    .center{
-        order:1;
     }
 
     .machine-wrap{
@@ -468,8 +664,8 @@ body{
         max-width:470px;
     }
 
-    .title{
-        font-size:62px;
+    .hero-title{
+        font-size:68px;
     }
 }
 
@@ -477,21 +673,26 @@ body{
 </head>
 <body>
 
-<div class="bg-glow"></div>
-
 <div class="page">
 
     <!-- LEFT -->
 
-    <div class="left-panel">
+    <div class="sidebar">
 
-        <div class="panel-title">
-            ❦ Your Restaurants ❦
+        <div class="sidebar-title">
+            ❦ Your<br>
+            Restaurants ❦
         </div>
 
-        <div class="add-row">
-            <input id="restaurantInput" placeholder="Add new restaurant..." />
-            <button onclick="addRestaurant()">Add</button>
+        <div class="add-box">
+
+            <input id="restaurantInput"
+            placeholder="Add new restaurant...">
+
+            <button onclick="addRestaurant()">
+                Add
+            </button>
+
         </div>
 
         <div id="restaurantList"></div>
@@ -502,11 +703,12 @@ body{
 
     <div class="center">
 
-        <div class="title">
-            🍽 Family Dinner Picker 🍽
+        <div class="hero-title">
+            🍽 Family Dinner<br>
+            Picker 🍽
         </div>
 
-        <div class="subtitle">
+        <div class="hero-subtitle">
             Pick tonight's restaurant with a Hearthstone-style spin!
         </div>
 
@@ -519,9 +721,9 @@ body{
 
                 <div class="machine">
 
-                    <div class="center-highlight"></div>
+                    <div class="winner-zone"></div>
 
-                    <div id="spinnerTrack"></div>
+                    <div id="track"></div>
 
                 </div>
 
@@ -529,7 +731,8 @@ body{
 
         </div>
 
-        <button class="spin-btn" onclick="spinWheel()">
+        <button class="spin-btn"
+        onclick="spinWheel()">
             SPIN
         </button>
 
@@ -539,7 +742,7 @@ body{
 
     <!-- RIGHT -->
 
-    <div class="right-panel">
+    <div class="right-side">
 
         <div class="sign">
             Let's<br>
@@ -557,97 +760,103 @@ body{
 </div>
 
 <div class="footer">
-    <div>💡 Cross off places you don't want</div>
-    <div>💾 Saved automatically with localStorage</div>
-    <div>🔒 Private to this device</div>
+
+    <div class="footer-item">
+        💡 Cross off places you don't want
+    </div>
+
+    <div class="footer-item">
+        💾 Uses local storage automatically
+    </div>
+
+    <div class="footer-item">
+        🔒 Private to this device
+    </div>
+
 </div>
 
 <script>
 
-let restaurants = JSON.parse(localStorage.getItem("restaurants")) || [
+let restaurants =
+JSON.parse(localStorage.getItem("restaurants"))
+|| [
 
-    {name:"Olive Garden", crossed:false},
-    {name:"Chick-fil-A", crossed:false},
-    {name:"Texas Roadhouse", crossed:false},
-    {name:"Panera Bread", crossed:false},
-    {name:"Red Lobster", crossed:false},
-    {name:"Outback Steakhouse", crossed:false},
-    {name:"Maggiano's", crossed:false}
+{name:"Olive Garden",crossed:false},
+{name:"Chick-fil-A",crossed:false},
+{name:"Texas Roadhouse",crossed:false},
+{name:"Panera Bread",crossed:false},
+{name:"Red Lobster",crossed:false},
+{name:"Outback Steakhouse",crossed:false},
+{name:"Maggiano's",crossed:false}
 
 ];
 
-const listEl = document.getElementById("restaurantList");
-const spinnerTrack = document.getElementById("spinnerTrack");
+const list = document.getElementById("restaurantList");
+const track = document.getElementById("track");
 
-function saveData(){
-    localStorage.setItem("restaurants", JSON.stringify(restaurants));
-}
+/* RENDER */
 
-function renderRestaurants(){
+function render(){
 
-    listEl.innerHTML = "";
+    list.innerHTML = "";
 
     restaurants.forEach((r,index)=>{
 
-        const item = document.createElement("div");
+        const card = document.createElement("div");
 
-        item.className = "restaurant-item";
+        card.className = "restaurant-card";
 
-        item.innerHTML = `
+        card.innerHTML = `
+
             <div class="restaurant-name"
-            style="${r.crossed ? 'opacity:0.4;text-decoration:line-through;' : ''}">
+            style="${r.crossed ? 'opacity:.4;text-decoration:line-through;' : ''}">
                 ${r.name}
             </div>
 
-            <div class="item-buttons">
+            <div class="card-buttons">
 
                 <button class="cross-btn"
                 onclick="toggleCross(${index})">
+
                     ${r.crossed ? 'Undo' : 'Cross Off'}
+
                 </button>
 
                 <button class="delete-btn"
                 onclick="deleteRestaurant(${index})">
+
                     🗑
+
                 </button>
 
             </div>
         `;
 
-        listEl.appendChild(item);
+        list.appendChild(card);
 
     });
 
-    renderSpinner();
+    renderWheel();
 
-    saveData();
+    save();
 }
 
-function renderSpinner(){
+/* SAVE */
 
-    spinnerTrack.innerHTML = "";
+function save(){
 
-    const active = restaurants.filter(r=>!r.crossed);
-
-    const repeated = [...active,...active,...active];
-
-    repeated.forEach(r=>{
-
-        const card = document.createElement("div");
-
-        card.className = "card";
-
-        card.textContent = r.name;
-
-        spinnerTrack.appendChild(card);
-
-    });
-
+    localStorage.setItem(
+        "restaurants",
+        JSON.stringify(restaurants)
+    );
 }
+
+/* ADD */
 
 function addRestaurant(){
 
-    const input = document.getElementById("restaurantInput");
+    const input =
+    document.getElementById("restaurantInput");
 
     const value = input.value.trim();
 
@@ -660,51 +869,93 @@ function addRestaurant(){
 
     input.value = "";
 
-    renderRestaurants();
+    render();
 }
+
+/* DELETE */
+
+function deleteRestaurant(index){
+
+    restaurants.splice(index,1);
+
+    render();
+}
+
+/* CROSS OFF */
 
 function toggleCross(index){
 
     restaurants[index].crossed =
     !restaurants[index].crossed;
 
-    renderRestaurants();
+    render();
 }
 
-function deleteRestaurant(index){
+/* WHEEL */
 
-    restaurants.splice(index,1);
+function renderWheel(){
 
-    renderRestaurants();
+    track.innerHTML = "";
+
+    const active =
+    restaurants.filter(r=>!r.crossed);
+
+    const repeated = [
+        ...active,
+        ...active,
+        ...active,
+        ...active
+    ];
+
+    repeated.forEach(r=>{
+
+        const div =
+        document.createElement("div");
+
+        div.className = "spin-card";
+
+        div.innerText = r.name;
+
+        track.appendChild(div);
+
+    });
 }
+
+/* SPIN */
 
 function spinWheel(){
 
-    const active = restaurants.filter(r=>!r.crossed);
+    const active =
+    restaurants.filter(r=>!r.crossed);
 
     if(active.length === 0){
+
         alert("Add restaurants first");
+
         return;
     }
 
     const winnerIndex =
     Math.floor(Math.random() * active.length);
 
-    const winner = active[winnerIndex];
+    const winner =
+    active[winnerIndex];
 
-    const cardHeight = 139;
+    const cardHeight = 145;
 
-    const loops = active.length * 2;
+    const loops =
+    active.length * 2;
 
-    const finalIndex = loops + winnerIndex;
+    const finalIndex =
+    loops + winnerIndex;
 
     const offset =
-    (finalIndex * cardHeight) - 260;
+    (finalIndex * cardHeight) - 190;
 
-    spinnerTrack.style.transition =
-    "transform 6s cubic-bezier(.12,.89,.16,1)";
+    track.style.transition =
+    "transform 5.8s cubic-bezier(.12,.89,.16,1)";
 
-    spinnerTrack.style.transform =
+    track.style.transform =
     `translateY(-${offset}px)`;
 
     document.getElementById("winnerText")
@@ -712,7 +963,7 @@ function spinWheel(){
     `✨ Tonight: ${winner.name} ✨`;
 }
 
-renderRestaurants();
+render();
 
 </script>
 
