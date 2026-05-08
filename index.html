@@ -698,19 +698,31 @@ function spinWheel(){
 
     // if getting near bottom, instantly move back upward
     // while preserving same visible position
-    if(currentOffset >
-    ((totalCards * cardHeight) - 12000)){
+    const machine =
+document.querySelector(".machine");
 
-        currentOffset -=
-        loopHeight * 30;
+const machineHeight =
+machine.offsetHeight;
 
-        spinnerTrack.style.transition = "none";
+const trackHeight =
+spinnerTrack.scrollHeight;
 
-        spinnerTrack.style.transform =
-        `translateY(-${currentOffset}px)`;
+// exact visible bottom edge
+const visibleBottom =
+currentOffset + machineHeight;
 
-        spinnerTrack.offsetHeight;
-    }
+// reset BEFORE visible bottom reaches end
+if(visibleBottom > trackHeight - machineHeight){
+
+    currentOffset -= loopHeight * 50;
+
+    spinnerTrack.style.transition = "none";
+
+    spinnerTrack.style.transform =
+    `translateY(-${currentOffset}px)`;
+
+    spinnerTrack.offsetHeight;
+}
 
     // continue spinning downward forever
 
@@ -738,7 +750,7 @@ currentIndex +
 spinsForward +
 moveToWinner;
 
-const centerOffset = 230;
+const centerOffset = 275;
 
 currentOffset =
 (targetIndex * cardHeight) - centerOffset;
