@@ -498,7 +498,7 @@ body{
         </div>
 
         <div class="subtitle">
-            Pick tonight's restaurant with a Hearthstone-style spin!
+            Pick tonight's restaurant by spinning the wheel!!!
         </div>
 
         <div class="machine-wrap">
@@ -762,9 +762,13 @@ currentOffset =
     spinnerTrack.style.transform =
     `translateY(-${currentOffset}px)`;
 
+   setTimeout(() => {
+
     document.getElementById("winnerText")
     .innerHTML =
     `✨ Tonight: ${winner.name} ✨`;
+
+}, 6000);
 
 }
 renderRestaurants();
