@@ -713,17 +713,30 @@ function spinWheel(){
     }
 
     // continue spinning downward forever
-   const currentIndex =
+
+const currentIndex =
 Math.round(currentOffset / cardHeight);
 
 const spinsForward =
 (Math.floor(Math.random() * 10) + 18)
 * active.length;
 
+// find where we are INSIDE the loop
+const currentLoopIndex =
+currentIndex % active.length;
+
+// calculate how far to move to hit winner
+let moveToWinner =
+winnerIndex - currentLoopIndex;
+
+if(moveToWinner < 0){
+    moveToWinner += active.length;
+}
+
 const targetIndex =
 currentIndex +
 spinsForward +
-winnerIndex;
+moveToWinner;
 
 currentOffset =
 targetIndex * cardHeight;
