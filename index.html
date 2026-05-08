@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Restaurant Picker</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#0f1117;
+    color:white;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    width:95%;
+    max-width:900px;
+    text-align:center;
+}
+
+h1{
+    font-size:3rem;
+    margin-bottom:25px;
+}
+
+.input-area{
+    display:flex;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+#restaurantInput{
+    flex:1;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    outline:none;
+}
+
+button{
+    border:none;
+    border-radius:12px;
+    padding:14px 20px;
+    background:#4d7cff;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+#restaurantList{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+    margin-bottom:35px;
+}
+
+.restaurant{
+    background:#1b2230;
+    padding:10px 14px;
+    border-radius:20px;
+    transition:.2s;
+}
+
+.used{
+    opacity:.35;
+    text-decoration:line-through;
+}
+
+.spinner-container{
+    position:relative;
+    width:100%;
+    height:220px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+
+    border-radius:25px;
+    background:#171c27;
+
+    border:3px solid #4d7cff;
+
+    margin-bottom:30px;
+}
+
+#spinner{
+    font-size:3rem;
+    font-weight:bold;
+    transition:transform .15s;
+    padding:20px;
+}
+
+.glow{
+    animation:glow .8s infinite alternate;
+}
+
+@keyframes glow{
+    from{
+        text-shadow:0 0 10px #4d7cff;
+    }
+
+    to{
+        text-shadow:
+        0 0 20px #4d7cff,
+        0 0 40px #4d7cff;
+    }
+}
+
+.buttons{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+}
+
+@media(max-width:600px){
+
+    h1{
+        font-size:2rem;
+    }
+
+    #spinner{
+        font-size:2rem;
+    }
+
+    .input-area{
+        flex-direction:column;
+    }
+
+    button{
+        width:100%;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Restaurant Picker</h1>
+
+    <div class="input-area">
+        <input
+            id="restaurantInput"
+            type="text"
+            placeholder="Enter restaurant..."
+        >
+
+        <button id="addBtn">
+            Add
+        </button>
+    </div>
+
+    <div id="restaurantList"></div>
+
+    <div class="spinner-container">
+        <div id="spinner">
+            PRESS SPIN
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button id="spinBtn">
+            SPIN
+        </button>
+
+        <button id="crossBtn">
+            ✔ Cross Off
+        </button>
+
+        <button id="resetBtn">
+            Reset All
+        </button>
+    </div>
+
+</div>
+
+<script>
+let restaurants =
+JSON.parse(localStorage.getItem("restaurants")) || [];
+
+let selectedRestaurant = null;
+
+const input =
+document.getElementById("restaurantInput");
+
+const addBtn =
+document.getElementById("addBtn");
+
+const list =
+document.getElementById("restaurantList");
+
+const spinner =
+document.getElementById("spinner");
+
+function saveRestaurants(){
+
+    localStorage.setItem(
+        "restaurants",
+        JSON.stringify(restaurants)
+    );
+}
+
+function renderRestaurants(){
+
+    list.innerHTML = "";
+
+    restaurants.forEach((restaurant)=>{
+
+        const div =
+        document.createElement("div");
+
+        div.className = "restaurant";
+
+        if(restaurant.used){
+            div.classList.add("used");
+        }
+
+        div.textContent =
+        restaurant.name;
+
+        list.appendChild(div);
+    });
+}
+
+function addRestaurant(){
+
+    const name =
+    input.value.trim();
+
+    if(!name) return;
+
+    restaurants.push({
+        name:name,
+        used:false
+    });
+
+    saveRestaurants();
+
+    renderRestaurants();
+
+    input.value = "";
+}
+
+addBtn.addEventListener(
+    "click",
+    addRestaurant
+);
+
+input.addEventListener("keydown",(e)=>{
+
+    if(e.key === "Enter"){
+        addRestaurant();
+    }
+});
+
+document
+.getElementById("spinBtn")
+.addEventListener("click", async ()=>{
+
+    const available =
+    restaurants.filter(r => !r.used);
+
+    if(available.length === 0){
+
+        spinner.textContent =
+        "NO RESTAURANTS LEFT";
+
+        return;
+    }
+
+    spinner.classList.add("glow");
+
+    let speed = 50;
+
+    for(let i = 0; i < 45; i++){
+
+        const random =
+        available[
+            Math.floor(
+                Math.random() * available.length
+            )
+        ];
+
+        spinner.textContent =
+        random.name;
+
+        spinner.style.transform =
+        `scale(${1 + Math.random() * 0.15})`;
+
+        await new Promise(resolve =>
+            setTimeout(resolve, speed)
+        );
+
+        speed += 5;
+    }
+
+    selectedRestaurant =
+    available[
+        Math.floor(
+            Math.random() * available.length
+        )
+    ];
+
+    spinner.textContent =
+    selectedRestaurant.name;
+
+    spinner.style.transform =
+    "scale(1.15)";
+
+    setTimeout(()=>{
+        spinner.style.transform =
+        "scale(1)";
+    },300);
+});
+
+document
+.getElementById("crossBtn")
+.addEventListener("click", ()=>{
+
+    if(!selectedRestaurant) return;
+
+    const found =
+    restaurants.find(
+        r => r.name === selectedRestaurant.name
+    );
+
+    if(found){
+        found.used = true;
+    }
+
+    saveRestaurants();
+
+    renderRestaurants();
+});
+
+document
+.getElementById("resetBtn")
+.addEventListener("click", ()=>{
+
+    localStorage.removeItem("restaurants");
+
+    restaurants = [];
+
+    selectedRestaurant = null;
+
+    spinner.textContent =
+    "PRESS SPIN";
+
+    renderRestaurants();
+});
+
+renderRestaurants();
+</script>
+
+</body>
+</html>
