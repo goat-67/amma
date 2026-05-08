@@ -2105,10 +2105,30 @@ JSON.parse(localStorage.getItem("restaurants"))
 
 ];
 
-const list = document.getElementById("restaurantList");
-const track = document.getElementById("track");
+const list =
+document.getElementById("restaurantList");
 
-/* RENDER */
+const track =
+document.getElementById("track");
+
+let spinning = false;
+
+/* =========================
+   SAVE
+========================= */
+
+function save(){
+
+    localStorage.setItem(
+        "restaurants",
+        JSON.stringify(restaurants)
+    );
+
+}
+
+/* =========================
+   RENDER
+========================= */
 
 function render(){
 
@@ -2116,18 +2136,19 @@ function render(){
 
     restaurants.forEach((r,index)=>{
 
-        const card = document.createElement("div");
+        const card =
+        document.createElement("div");
 
-        card.className = "restaurant-card";
+        card.className =
+        `restaurant-card fade-in ${r.crossed ? 'crossed' : ''}`;
 
         card.innerHTML = `
 
-            <div class="restaurant-name"
-            style="${r.crossed ? 'opacity:.4;text-decoration:line-through;' : ''}">
+            <div class="restaurant-name">
                 ${r.name}
             </div>
 
-            <div class="card-buttons">
+            <div class="restaurant-actions">
 
                 <button class="cross-btn"
                 onclick="toggleCross(${index})">
@@ -2144,6 +2165,7 @@ function render(){
                 </button>
 
             </div>
+
         `;
 
         list.appendChild(card);
@@ -2153,49 +2175,51 @@ function render(){
     renderWheel();
 
     save();
+
 }
 
-/* SAVE */
-
-function save(){
-
-    localStorage.setItem(
-        "restaurants",
-        JSON.stringify(restaurants)
-    );
-}
-
-/* ADD */
+/* =========================
+   ADD
+========================= */
 
 function addRestaurant(){
 
     const input =
     document.getElementById("restaurantInput");
 
-    const value = input.value.trim();
+    const value =
+    input.value.trim();
 
     if(!value) return;
 
     restaurants.push({
+
         name:value,
         crossed:false
+
     });
 
     input.value = "";
 
     render();
+
 }
 
-/* DELETE */
+/* =========================
+   DELETE
+========================= */
 
 function deleteRestaurant(index){
 
     restaurants.splice(index,1);
 
     render();
+
 }
 
-/* CROSS OFF */
+/* =========================
+   CROSS OFF
+========================= */
 
 function toggleCross(index){
 
@@ -2203,51 +2227,102 @@ function toggleCross(index){
     !restaurants[index].crossed;
 
     render();
+
 }
 
-/* WHEEL */
+/* =========================
+   WHEEL RENDER
+========================= */
 
 function renderWheel(){
 
     track.innerHTML = "";
 
     const active =
-    restaurants.filter(r=>!r.crossed);
+    restaurants.filter(r => !r.crossed);
+
+    if(active.length === 0){
+
+        const empty =
+        document.createElement("div");
+
+        empty.className =
+        "slot-card active";
+
+        empty.innerHTML =
+        `<span>Add Restaurants</span>`;
+
+        track.appendChild(empty);
+
+        return;
+
+    }
 
     const repeated = [
+
+        ...active,
         ...active,
         ...active,
         ...active,
         ...active
+
     ];
 
-    repeated.forEach(r=>{
+    repeated.forEach((r)=>{
 
-        const div =
+        const card =
         document.createElement("div");
 
-        div.className = "spin-card";
+        card.className =
+        "slot-card fade-in";
 
-        div.innerText = r.name;
+        if(r.name.length > 18){
 
-        track.appendChild(div);
+            card.classList.add("small-text");
+
+        }
+
+        if(r.name.length > 26){
+
+            card.classList.add("tiny-text");
+
+        }
+
+        card.innerHTML = `
+            <span>${r.name}</span>
+        `;
+
+        track.appendChild(card);
 
     });
+
 }
 
-/* SPIN */
+/* =========================
+   SPIN
+========================= */
 
 function spinWheel(){
 
+    if(spinning) return;
+
     const active =
-    restaurants.filter(r=>!r.crossed);
+    restaurants.filter(r => !r.crossed);
 
     if(active.length === 0){
 
         alert("Add restaurants first");
 
         return;
+
     }
+
+    spinning = true;
+
+    const button =
+    document.querySelector(".spin-btn");
+
+    button.classList.add("disabled");
 
     const winnerIndex =
     Math.floor(Math.random() * active.length);
@@ -2255,10 +2330,10 @@ function spinWheel(){
     const winner =
     active[winnerIndex];
 
-    const cardHeight = 145;
+    const cardHeight = 150;
 
     const loops =
-    active.length * 2;
+    active.length * 3;
 
     const finalIndex =
     loops + winnerIndex;
@@ -2267,15 +2342,44 @@ function spinWheel(){
     (finalIndex * cardHeight) - 190;
 
     track.style.transition =
-    "transform 5.8s cubic-bezier(.12,.89,.16,1)";
+    "transform 5.8s cubic-bezier(.08,.72,.18,1)";
 
     track.style.transform =
     `translateY(-${offset}px)`;
 
-    document.getElementById("winnerText")
-    .innerHTML =
-    `✨ Tonight: ${winner.name} ✨`;
+    setTimeout(()=>{
+
+        document.getElementById("winnerText")
+        .innerHTML =
+        `✨ Tonight: ${winner.name} ✨`;
+
+        button.classList.remove("disabled");
+
+        spinning = false;
+
+    },5900);
+
 }
+
+/* =========================
+   ENTER KEY
+========================= */
+
+document
+.getElementById("restaurantInput")
+.addEventListener("keydown",(e)=>{
+
+    if(e.key === "Enter"){
+
+        addRestaurant();
+
+    }
+
+});
+
+/* =========================
+   INITIALIZE
+========================= */
 
 render();
 
